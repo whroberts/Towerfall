@@ -15,9 +15,14 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        SetEnemiesToSpawn();
         StartCoroutine(SpawnEnemies());
     }
+
+    private void Update()
+    {
+        CheckForCurrentEnemies();
+    }
+
     void SetEnemiesToSpawn()
     {
         for (int i = 0; i < _currentRound; i++)
@@ -30,17 +35,34 @@ public class EnemyManager : MonoBehaviour
 
     IEnumerator SpawnEnemies()
     {
+        SetEnemiesToSpawn();
+
         for (int i = 0; i < _enemiesThisRound.Count; i++)
         {
             GameObject enemy = Instantiate(_enemyBasic, gameObject.transform, true);
             enemy.transform.position = new Vector3(30, 0, 0);
             enemy.transform.rotation = Quaternion.identity;
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
     void CheckForCurrentEnemies()
     {
-        Collider[] currentEnemies = GetComponentsInChildren<Collider>();
+        EnemyBase[] currentEnemies = GetComponentsInChildren<EnemyBase>();
+        Debug.Log(currentEnemies.Length);
+
+        if (currentEnemies.Length == 0)
+        {
+            if (_currentRound < _maxRounds)
+            {
+                _currentRound++;
+                StartCoroutine(SpawnEnemies());
+            }
+            else if (_currentRound >= _maxRounds)
+            {
+                Debug.Log("YOU WIN");
+            }
+        }
+       
     }
 }
