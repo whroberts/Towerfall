@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class TowerBase : MonoBehaviour, IHealth
+public abstract class TowerBase : MonoBehaviour, IDamagable
 {
     public abstract void PrintOnStart();
     public abstract void Shoot();
@@ -12,7 +12,7 @@ public abstract class TowerBase : MonoBehaviour, IHealth
         Debug.Log("Print From Base Class In Awake");
     }
 
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
 
     }

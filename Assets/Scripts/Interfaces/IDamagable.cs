@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IHealth
+public interface IDamagable
 {
-    void TakeDamage();
+    void TakeDamage(int damage);
 }
