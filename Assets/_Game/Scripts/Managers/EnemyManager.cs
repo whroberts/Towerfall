@@ -29,8 +29,6 @@ public class EnemyManager : MonoBehaviour
         {
             _enemiesThisRound.Add(_enemyBasic);
         }
-
-        Debug.Log(_enemiesThisRound.Count);
     }
 
     IEnumerator SpawnEnemies()
@@ -49,7 +47,6 @@ public class EnemyManager : MonoBehaviour
     void CheckForCurrentEnemies()
     {
         EnemyBase[] currentEnemies = GetComponentsInChildren<EnemyBase>();
-        Debug.Log(currentEnemies.Length);
 
         if (currentEnemies.Length == 0)
         {
