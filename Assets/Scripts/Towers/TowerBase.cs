@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
+
 public abstract class TowerBase : MonoBehaviour, IDamagable
 {
     [Header("Tower Base Stats")]
 
-    // Shots per second
-    [SerializeField] protected float _towerFireRate = 2;
+    // Shoot every X seconds
+    [SerializeField] protected float _towerFireRate = 0.75f;
+
+    // Shooting Recoil
+    [SerializeField] protected float _towerRotRecoil = 0; // Positive is to the left
+    [SerializeField] protected Vector2 _towerLinRecoil = new Vector2 (0,0);
 
     // Automatically reloads
     [SerializeField] protected float _currentAmmo = 0;
@@ -19,19 +23,19 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
     // In seconds
     [SerializeField] protected float _reloadTime = 1;
 
-    // Multiple of normal gravity
-    [SerializeField] protected float _towerGravity = 2;
-
     [SerializeField] protected int _currentHealth = 0;
     [SerializeField] protected int _totalHealth = 25;
 
     Collider2D _col;
-    Rigidbody2D _rb;
+    protected Rigidbody2D _rb;
+
+    protected Transform _shootPosition;
 
     void Awake()
     {
         _col = GetComponent<Collider2D>();
         _rb = GetComponent<Rigidbody2D>();
+        _shootPosition = transform.GetChild(0);
 
         _currentHealth = _totalHealth;
         _currentAmmo = _totalAmmo;

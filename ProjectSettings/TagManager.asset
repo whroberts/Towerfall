@@ -13,11 +13,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Tower
+  - TowerProjectiles
+  - Enemy
+  - EnemyProjectiles
+  - Obstacles
   - 
   - 
   - 
