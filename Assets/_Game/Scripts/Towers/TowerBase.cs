@@ -7,6 +7,9 @@ using UnityEngine;
 
 public abstract class TowerBase : MonoBehaviour, IDamagable
 {
+    [Header("For Testing Purposes")]
+    [SerializeField] protected bool _canShoot = true;
+
     [Header("Tower Base Stats")]
 
     // Shoot every X seconds
@@ -26,10 +29,15 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
     [SerializeField] protected int _currentHealth = 0;
     [SerializeField] protected int _totalHealth = 25;
 
+    // we can change this to have detection when enemies come
+    [SerializeField] protected float _timeToStartFiring = 0.1f;
+
     Collider2D _col;
     protected Rigidbody2D _rb;
 
     protected Transform _shootPosition;
+
+    int _enemiesInRange;
 
     void Awake()
     {
@@ -43,20 +51,73 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
 
     public abstract void PrintOnStart();
     public abstract void Shoot();
-
-    private void Start()
-    {
-        Debug.Log("Print From Base Class In Awake");
-    }
+    public abstract IEnumerator Reload();
 
     public void TakeDamage(int damage)
     {
-        _currentHealth = -damage;
+        _currentHealth -= damage;
 
         if (_currentHealth <= 0)
         {
             Debug.Log(this.name + "has taken fatal damage");
             Destroy(gameObject);
         }
+    }
+
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // if an enemy walks in the detection zone
+        if (collision.gameObject.GetComponent<EnemyBase>() != null)
+        {
+            // adds an enemy to the list of enemies inside the zone
+            _enemiesInRange++;
+
+            // testing purposes only
+            if (_canShoot)
+            {
+
+                // insures that the tower will not invoke multiple times
+                if (_enemiesInRange <= 1)
+                {
+                    InvokeRepeating("Shoot", _timeToStartFiring, _towerFireRate);
+                    
+                }
+            }
+
+            // testing
+            Debug.Log("Enemy entered zone: " + _enemiesInRange);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        // checks if an enemy was the collision that left
+        if (collision.gameObject.GetComponent<EnemyBase>() != null)
+        {
+            // takes an enemy out of the list
+
+            _enemiesInRange--;
+            
+            // if there are no enemies in range, attacking stops
+            if (_enemiesInRange <= 0)
+            {
+                CancelInvoke();
+                
+            }
+
+            //testing 
+            Debug.Log("Enemy left zone: " + _enemiesInRange);
+        }
+    }
+
+    protected void TowerFXSystem()
+    {
+        // play effects on hit
+    }
+
+    protected void TowerAudioEffects()
+    {
+        // play sound effects
     }
 }
