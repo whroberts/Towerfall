@@ -9,25 +9,34 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] int _maxRounds = 5;
 
     [Header("Enemy Prefabs")]
-    [SerializeField] GameObject _enemyBasic = null;
+    [SerializeField] GameObject _enemy1 = null;
 
     List<GameObject> _enemiesThisRound = new List<GameObject>();
 
+
+    //Does not spawn enemies randomly, only spawns when the player presses S
     private void Start()
     {
-        StartCoroutine(SpawnEnemies());
+        //StartCoroutine(SpawnEnemies());
     }
 
     private void Update()
     {
-        CheckForCurrentEnemies();
+        //CheckForCurrentEnemies();
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            GameObject enemy = Instantiate(_enemy1, gameObject.transform.position, Quaternion.identity);
+            enemy.transform.position = new Vector3(30, 0, 0);
+            enemy.transform.rotation = Quaternion.identity;
+        }
     }
 
     void SetEnemiesToSpawn()
     {
         for (int i = 0; i < _currentRound; i++)
         {
-            _enemiesThisRound.Add(_enemyBasic);
+            _enemiesThisRound.Add(_enemy1);
         }
     }
 
@@ -37,10 +46,10 @@ public class EnemyManager : MonoBehaviour
 
         for (int i = 0; i < _enemiesThisRound.Count; i++)
         {
-            GameObject enemy = Instantiate(_enemyBasic, gameObject.transform, true);
+            GameObject enemy = Instantiate(_enemy1, gameObject.transform, true);
             enemy.transform.position = new Vector3(30, 0, 0);
             enemy.transform.rotation = Quaternion.identity;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(2);
         }
     }
 

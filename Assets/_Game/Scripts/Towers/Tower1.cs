@@ -11,6 +11,13 @@ public class Tower1 : TowerBase
         Debug.Log("Printing From Override function in Tower1 in Start");
     }
 
+    public virtual void UpdateAmmoCount()
+    {
+        // might be completely unnecessary but we need to pull the UI updater out of the repeating shooting function
+
+        transform.GetChild(1).GetComponent<TextMesh>().text = ("Ammo: " + _currentAmmo + " / " + _totalAmmo);
+    }
+
     public override void Shoot()
     {
         if (_currentAmmo > 0)
@@ -25,11 +32,35 @@ public class Tower1 : TowerBase
             _rb.AddForce(_towerLinRecoil);
 
             _currentAmmo -= 1;
-
-            // TEMP
-            transform.GetChild(1).GetComponent<TextMesh>().text = ("Ammo: " + _currentAmmo + " / " + _totalAmmo);
+            UpdateAmmoCount();
         }
 
+        //implemented the reload option
+        else if (_currentAmmo <= 0)
+        {
+            StartCoroutine(Reload());
+        }
+
+    }
+
+    public override IEnumerator Reload()
+    {
+        //cancels the attack
+        CancelInvoke();
+
+        //waits for the reload time
+        yield return new WaitForSeconds(_reloadTime);
+
+        //resets the ammo count
+        _currentAmmo = _totalAmmo;
+
+        //sets UI
+        UpdateAmmoCount();
+        
+        //reinvokes the shooting
+        InvokeRepeating("Shoot", _timeToStartFiring, _towerFireRate);
+
+        // reload sound effect
     }
 
     private void Update()
@@ -38,14 +69,26 @@ public class Tower1 : TowerBase
         {
             Shoot();
         }
+
+        if(Input.GetButtonDown("Fire1"))
+        {
+            _canShoot = true;
+        }
+        
+        if(Input.GetButtonDown("Fire2"))
+        {
+            _canShoot = false;
+        }
     }
+
+    
 
     private void Start()
     {
         //PrintOnStart();
 
         // TEMP ---> Maybe Coroutine?
-        InvokeRepeating("Shoot", 2.5f, _towerFireRate);
-        
+
+        UpdateAmmoCount();
     }
 }
