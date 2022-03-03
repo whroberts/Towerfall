@@ -14,7 +14,7 @@ public class Enemy1 : EnemyBase
         // play attack animation
 
         // stores all colliders hit in front of enemy
-        Collider2D[] hitObjects  = Physics2D.OverlapCircleAll(_enemyCheck.transform.position, _attackRange);
+        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(_enemyCheck.transform.position, _attackRange);
 
 
         foreach (Collider2D col in hitObjects)
@@ -23,34 +23,18 @@ public class Enemy1 : EnemyBase
             //scans all colliders for damagable objects
             IDamagable damagable = col.gameObject.GetComponent<IDamagable>();
 
-            if (damagable != null)
+            if (damagable != null && !col.GetComponent<EnemyBase>())
             {
                 //if there is a tower, the enemy attacks dealing damage to the tower
                 //can damage multiple towers at once 
-                TowerBase tower = col.gameObject.GetComponent<TowerBase>();
-                if (tower != null)
+                if (_attackAppliesForce)
                 {
-                    if (_attackAppliesForce)
-                    {
-                        tower.GetComponent<Rigidbody2D>().AddForce(new Vector2(-100, -100), ForceMode2D.Impulse);
-                    }
-
-                    tower.TakeDamage(_onHitDamage);
+                    col.GetComponent<Rigidbody2D>().AddForce(new Vector2(-100, -100), ForceMode2D.Impulse);
                 }
 
-                //leaves opprotunity for other damagable objects
-                else
-                {
-                    // do nothing yet
-                }
-            }
-            else
-            {
-                // do nothing yet 
+                damagable.TakeDamage(_onHitDamage);
             }
         }
-
-        //yield return new WaitForEndOfFrame();
     }
 
     IEnumerator ResetMoveSpeed()
@@ -73,19 +57,33 @@ public class Enemy1 : EnemyBase
 
         if (damagable != null)
         {
-            TowerBase tower = collision.GetComponent<TowerBase>();
-
-            if (tower != null)
+            if (collision.GetComponent<EnemyBase>() != null)
             {
-                Debug.Log(tower.name + " is in of range of " + gameObject.name);
-                // starts attacking
-
                 _storedMoveSpeed = _enemyMoveSpeed;
                 _enemyMoveSpeed = 0;
+            }
+
+            if (collision.GetComponent<TowerBase>() != null)
+            {
+                TowerBase tower = collision.GetComponent<TowerBase>();
+
+                Debug.Log(collision.gameObject.name + " is being attacked");
+                _storedMoveSpeed = _enemyMoveSpeed;
+                _enemyMoveSpeed = 0;
+                // starts attacking
 
                 //NOT A PERMANENT SOLUTION
                 tower.StopAllCoroutines();
                 tower.CancelInvoke();
+
+                InvokeRepeating("Attack", 1f, _attackRate);
+            }
+
+            else if (collision.GetComponent<WallToDefend>() != null)
+            {
+                Debug.Log(collision.gameObject.name + " is being attacked");
+                _storedMoveSpeed = _enemyMoveSpeed;
+                _enemyMoveSpeed = 0;
 
                 InvokeRepeating("Attack", 1f, _attackRate);
             }
@@ -102,16 +100,11 @@ public class Enemy1 : EnemyBase
 
         if (damagable != null)
         {
-            TowerBase tower = collision.GetComponent<TowerBase>();
+            CancelInvoke("Attack");
+            Debug.Log(collision.gameObject.name + " is out of range of " + gameObject.name);
+            //resets this enemies movement speed
+            StartCoroutine(ResetMoveSpeed());
 
-            if (tower != null)
-            {
-                CancelInvoke("Attack");
-                Debug.Log(tower.name + " is out of range of " + gameObject.name);
-                //resets this enemies movement speed
-                StartCoroutine(ResetMoveSpeed());
-
-            }
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower1 : TowerBase
+public class BasicTower : TowerBase
 {
     [SerializeField] private GameObject _projectileRef = null;
 

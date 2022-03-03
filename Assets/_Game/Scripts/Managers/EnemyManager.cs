@@ -24,7 +24,7 @@ public class EnemyManager : MonoBehaviour
     {
         //CheckForCurrentEnemies();
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) && FindObjectOfType<GameManager>()?.CurrentState == GameManager.State.Playing)
         {
             GameObject enemy = Instantiate(_enemy1, gameObject.transform.position, Quaternion.identity);
             enemy.transform.position = new Vector3(30, 0, 0);
