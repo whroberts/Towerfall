@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public enum State {Intro, Paused, Playing, End};
-    public GameObject mainMenuPanel, gamePanel, pausePanel;
+    public GameObject mainMenuPanel, gamePanel, pausePanel, losePanel;
     private State currentState = State.Intro;
     public State CurrentState => currentState;
 
@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
         mainMenuPanel.SetActive(true);
         gamePanel.SetActive(false);
         pausePanel.SetActive(false);
+        losePanel.SetActive(false);
+
+        //Begin frozen
+        Time.timeScale = 0;
     }
 
     void Update()
@@ -89,9 +93,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         _isPaused = true;
         gamePanel.SetActive(false);
+        losePanel.SetActive(true);
 
-        //placeholder for end game panel
-        mainMenuPanel.SetActive(true);
         currentState = State.End;
     }
 
