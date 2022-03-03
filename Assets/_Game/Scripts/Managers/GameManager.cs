@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    enum State {intro, paused, playing};
+    enum State {intro, paused, playing, end};
     public GameObject mainMenuPanel, gamePanel, pausePanel;
     State currentState;
+
+    private bool _isPaused = true;
+    public bool IsPaused => _isPaused;
     void Start()
     {
         currentState = State.intro;
@@ -33,11 +36,17 @@ public class GameManager : MonoBehaviour
             case State.paused:
 
                 break;
+
+            case State.end:
+                if (FindObjectOfType<WallToDefend>().IsDefeated) 
+                    EndPlay();
+                break;
         }
     }
 
     public void BeginPlay()
     {
+        _isPaused = false;
         mainMenuPanel.SetActive(false);
         gamePanel.SetActive(true);
     }
@@ -45,6 +54,7 @@ public class GameManager : MonoBehaviour
     public void Pause()
     {
         Time.timeScale = 0;
+        _isPaused = true;
         gamePanel.SetActive(false);
         pausePanel.SetActive(true);
     }
@@ -52,7 +62,18 @@ public class GameManager : MonoBehaviour
     public void UnPause()
     {
         Time.timeScale = 1;
+        _isPaused = false;
         pausePanel.SetActive(false);
         gamePanel.SetActive(true);
+    }
+
+    public void EndPlay()
+    {
+        Time.timeScale = 0;
+        _isPaused = true;
+        gamePanel.SetActive(false);
+
+        //placeholder for end game panel
+        mainMenuPanel.SetActive(true);
     }
 }

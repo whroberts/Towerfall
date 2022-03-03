@@ -73,10 +73,11 @@ public class Enemy1 : EnemyBase
 
         if (damagable != null)
         {
-            TowerBase tower = collision.GetComponent<TowerBase>();
 
-            if (tower != null)
+            if (collision.GetComponent<TowerBase>() != null)
             {
+                TowerBase tower = collision.GetComponent<TowerBase>();
+
                 Debug.Log(tower.name + " is in of range of " + gameObject.name);
                 // starts attacking
 
@@ -87,6 +88,11 @@ public class Enemy1 : EnemyBase
                 tower.StopAllCoroutines();
                 tower.CancelInvoke();
 
+                InvokeRepeating("Attack", 1f, _attackRate);
+            }
+
+            else if (collision.GetComponent<WallToDefend>() != null)
+            {
                 InvokeRepeating("Attack", 1f, _attackRate);
             }
         }

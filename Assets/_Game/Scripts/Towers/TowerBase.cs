@@ -10,6 +10,10 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
     [Header("For Testing Purposes")]
     [SerializeField] protected bool _canShoot = true;
 
+    [Header("Tower Physics")] 
+    [SerializeField] protected int _towerGravity = 1;
+    public int TowerGravity => _towerGravity;
+
     [Header("Tower Base Stats")]
 
     // Shoot every X seconds
@@ -47,11 +51,19 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
 
         _currentHealth = _totalHealth;
         _currentAmmo = _totalAmmo;
+
+        //must be zero for touch placement
+        _rb.gravityScale = 0;
     }
 
     public abstract void PrintOnStart();
     public abstract void Shoot();
     public abstract IEnumerator Reload();
+
+    public void SetGravity(int gravity)
+    {
+        _rb.gravityScale = _towerGravity;
+    }
 
     public void TakeDamage(int damage)
     {
@@ -64,7 +76,6 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
         }
     }
 
-    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // if an enemy walks in the detection zone
