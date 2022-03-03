@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621957999}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: 1, z: 0}
+  m_LocalPosition: {x: 15, y: 1.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5340829948205445800}
@@ -55,7 +55,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 30, y: 2}
+  m_Size: {x: 30, y: 10}
   m_EdgeRadius: 0
 --- !u!1 &5340829946261587496
 GameObject:
@@ -311,7 +311,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.88, y: 1.9}
+  m_Offset: {x: 0.15, y: 1.9}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -322,7 +322,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 4.4, y: 3.85}
+  m_Size: {x: 3.01, y: 3.85}
   m_EdgeRadius: 0
 --- !u!50 &5340829948205445806
 Rigidbody2D:
@@ -358,12 +358,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canShoot: 1
-  _towerFireRate: 0.75
+  _towerFireRate: 1.25
   _towerRotRecoil: 2000
   _towerLinRecoil: {x: -50, y: 50}
   _currentAmmo: 0
   _totalAmmo: 10
-  _reloadTime: 1
+  _reloadTime: 3
   _currentHealth: 0
   _totalHealth: 25
   _timeToStartFiring: 1

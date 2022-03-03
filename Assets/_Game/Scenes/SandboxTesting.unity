@@ -1349,45 +1349,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1621958000, guid: e9ca56cdca0b60e41a67649359595668, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 22.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1621958001, guid: e9ca56cdca0b60e41a67649359595668, type: 3}
-      propertyPath: m_Size.x
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829946380347408, guid: e9ca56cdca0b60e41a67649359595668,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829946380347410, guid: e9ca56cdca0b60e41a67649359595668,
-        type: 3}
-      propertyPath: m_Text
-      value: 'Ammo: 1 / 1'
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829946380347410, guid: e9ca56cdca0b60e41a67649359595668,
-        type: 3}
-      propertyPath: m_OffsetZ
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829946380347411, guid: e9ca56cdca0b60e41a67649359595668,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.42
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829946380347411, guid: e9ca56cdca0b60e41a67649359595668,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829947005785848, guid: e9ca56cdca0b60e41a67649359595668,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: c9a542715c39afd47abb3b4471edb416,
-        type: 3}
     - target: {fileID: 5340829948205445800, guid: e9ca56cdca0b60e41a67649359595668,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1443,66 +1404,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5340829948205445803, guid: e9ca56cdca0b60e41a67649359595668,
-        type: 3}
-      propertyPath: _towerFireRate
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829948205445803, guid: e9ca56cdca0b60e41a67649359595668,
-        type: 3}
-      propertyPath: _towerRotRecoil
-      value: 27000
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829948205445803, guid: e9ca56cdca0b60e41a67649359595668,
-        type: 3}
-      propertyPath: _towerLinRecoil.x
-      value: -500
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829948205445803, guid: e9ca56cdca0b60e41a67649359595668,
-        type: 3}
-      propertyPath: _totalAmmo
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829948205445803, guid: e9ca56cdca0b60e41a67649359595668,
-        type: 3}
-      propertyPath: _totalHealth
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829948205445803, guid: e9ca56cdca0b60e41a67649359595668,
-        type: 3}
-      propertyPath: _timeToStartFiring
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829948205445803, guid: e9ca56cdca0b60e41a67649359595668,
-        type: 3}
-      propertyPath: _projectileRef
-      value: 
-      objectReference: {fileID: 8038344099624028802, guid: 36a36a9fa5798ce4a87ab4ed82fe1d1b,
-        type: 3}
-    - target: {fileID: 5340829948205445803, guid: e9ca56cdca0b60e41a67649359595668,
-        type: 3}
-      propertyPath: _towerLinRecoil.y
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829948205445803, guid: e9ca56cdca0b60e41a67649359595668,
-        type: 3}
-      propertyPath: _reloadTime
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829948205445806, guid: e9ca56cdca0b60e41a67649359595668,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: bd4a7213a5cfa7746a154ad3c98c9fe8, type: 2}
     - target: {fileID: 5340829948205445807, guid: e9ca56cdca0b60e41a67649359595668,
         type: 3}
       propertyPath: m_Name
       value: Tower2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829948205445807, guid: e9ca56cdca0b60e41a67649359595668,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9ca56cdca0b60e41a67649359595668, type: 3}
@@ -4679,12 +4584,12 @@ PrefabInstance:
     - target: {fileID: 3442595253611026208, guid: da4d5fbbe9007014fb97877421d1e533,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -29.75
+      value: -31.19
       objectReference: {fileID: 0}
     - target: {fileID: 3442595253611026208, guid: da4d5fbbe9007014fb97877421d1e533,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.86
+      value: 7.12
       objectReference: {fileID: 0}
     - target: {fileID: 3442595253611026208, guid: da4d5fbbe9007014fb97877421d1e533,
         type: 3}
@@ -4731,6 +4636,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3442595253611026210, guid: da4d5fbbe9007014fb97877421d1e533,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442595253611026210, guid: da4d5fbbe9007014fb97877421d1e533,
+        type: 3}
+      propertyPath: m_Mass
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3442595253611026212, guid: da4d5fbbe9007014fb97877421d1e533,
         type: 3}
       propertyPath: m_Name
@@ -4775,23 +4690,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1621958000, guid: c319195871660ae49b10fb52a2d615f5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.02
-      objectReference: {fileID: 0}
     - target: {fileID: 1621958001, guid: c319195871660ae49b10fb52a2d615f5, type: 3}
       propertyPath: m_Size.y
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5340829948205445800, guid: c319195871660ae49b10fb52a2d615f5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -26.19
+      value: -26.6
       objectReference: {fileID: 0}
     - target: {fileID: 5340829948205445800, guid: c319195871660ae49b10fb52a2d615f5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.43
+      value: 9.75
       objectReference: {fileID: 0}
     - target: {fileID: 5340829948205445800, guid: c319195871660ae49b10fb52a2d615f5,
         type: 3}
@@ -4838,30 +4749,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5340829948205445803, guid: c319195871660ae49b10fb52a2d615f5,
-        type: 3}
-      propertyPath: _canShoot
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829948205445803, guid: c319195871660ae49b10fb52a2d615f5,
-        type: 3}
-      propertyPath: _reloadTime
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829948205445803, guid: c319195871660ae49b10fb52a2d615f5,
-        type: 3}
-      propertyPath: _towerFireRate
-      value: 1.25
-      objectReference: {fileID: 0}
     - target: {fileID: 5340829948205445807, guid: c319195871660ae49b10fb52a2d615f5,
         type: 3}
       propertyPath: m_Name
       value: Tower1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5340829948205445807, guid: c319195871660ae49b10fb52a2d615f5,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c319195871660ae49b10fb52a2d615f5, type: 3}
@@ -4915,12 +4806,12 @@ PrefabInstance:
     - target: {fileID: 8580488089765476126, guid: d149cabc9587b0e44bc7d33d21ab20ae,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -29.54
+      value: -31.22
       objectReference: {fileID: 0}
     - target: {fileID: 8580488089765476126, guid: d149cabc9587b0e44bc7d33d21ab20ae,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.57
+      value: 2.8300004
       objectReference: {fileID: 0}
     - target: {fileID: 8580488089765476126, guid: d149cabc9587b0e44bc7d33d21ab20ae,
         type: 3}
