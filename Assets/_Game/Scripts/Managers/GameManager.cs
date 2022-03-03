@@ -1,18 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    enum State {intro, paused, playing, end};
+    public enum State {Intro, Paused, Playing, End};
     public GameObject mainMenuPanel, gamePanel, pausePanel;
-    State currentState;
+    private State currentState = State.Intro;
+    public State CurrentState => currentState;
+
 
     private bool _isPaused = true;
     public bool IsPaused => _isPaused;
     void Start()
     {
-        currentState = State.intro;
+        currentState = State.Intro;
         mainMenuPanel.SetActive(true);
         gamePanel.SetActive(false);
         pausePanel.SetActive(false);
@@ -24,31 +27,41 @@ public class GameManager : MonoBehaviour
         switch (currentState)
         {
             //Press F to start the game
-            case State.intro:
+            case State.Intro:
                 if (Input.GetKeyDown(KeyCode.F))
                     BeginPlay();
                 break;
 
-            case State.playing:
+            case State.Playing:
+                if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+                    Pause();
+                else if (Input.GetKeyDown(KeyCode.R))
+                    ReloadScene();
 
-                break;
-
-            case State.paused:
-
-                break;
-
-            case State.end:
-                if (FindObjectOfType<WallToDefend>().IsDefeated) 
+                    if (FindObjectOfType<WallToDefend>().IsDefeated)
                     EndPlay();
+                break;
+
+            case State.Paused:
+                if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+                    UnPause();
+                break;
+
+            case State.End:
+                if (Input.GetKeyDown(KeyCode.R))
+                    ReloadScene();
                 break;
         }
     }
 
     public void BeginPlay()
     {
+        Time.timeScale = 1;
         _isPaused = false;
         mainMenuPanel.SetActive(false);
         gamePanel.SetActive(true);
+
+        currentState = State.Playing;
     }
 
     public void Pause()
@@ -57,6 +70,8 @@ public class GameManager : MonoBehaviour
         _isPaused = true;
         gamePanel.SetActive(false);
         pausePanel.SetActive(true);
+
+        currentState = State.Paused;
     }
 
     public void UnPause()
@@ -65,6 +80,8 @@ public class GameManager : MonoBehaviour
         _isPaused = false;
         pausePanel.SetActive(false);
         gamePanel.SetActive(true);
+
+        currentState = State.Playing;
     }
 
     public void EndPlay()
@@ -75,5 +92,11 @@ public class GameManager : MonoBehaviour
 
         //placeholder for end game panel
         mainMenuPanel.SetActive(true);
+        currentState = State.End;
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(0);
     }
 }

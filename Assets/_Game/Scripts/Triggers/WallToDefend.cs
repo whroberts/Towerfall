@@ -16,16 +16,12 @@ public class WallToDefend : MonoBehaviour, IDamagable
     {
         _col = GetComponent<Collider2D>();
         _sprite = GetComponentInChildren<SpriteRenderer>();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
         _currentHealth = _totalHealth;
     }
 
-
     public void TakeDamage(int damage)
     {
+        Debug.Log("Took Damage");
         _currentHealth -= damage;
 
         if (_currentHealth <= 0)

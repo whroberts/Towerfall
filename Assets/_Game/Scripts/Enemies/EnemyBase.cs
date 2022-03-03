@@ -39,14 +39,11 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
 
     void FixedUpdate()
     {
-        Debug.Log(this.transform.rotation);
-        //fixed update for constant physics
         MoveForward();
     }
 
     void MoveForward()
     {
-
         //moves the enemy forward
         if (_rb != null)
         {

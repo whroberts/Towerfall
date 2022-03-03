@@ -1,16 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
+using System.Security.Cryptography;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
-using Quaternion = UnityEngine.Quaternion;
-using Vector2 = UnityEngine.Vector2;
+using UnityEngine.UI;
 
 public class TowerManager : MonoBehaviour
 {
     [SerializeField] private GameObject _basicTower = null;
     [SerializeField] private GameObject _sniperTower = null;
+    [SerializeField] private Text _text = null;
 
 
     private bool _holdingTower = false;
@@ -20,13 +18,19 @@ public class TowerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!FindObjectOfType<GameManager>().IsPaused)
+        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Debug.Log("Raw: " + mousePos);
+        mousePos.z = 35;
+        Debug.Log("Filtered: " + mousePos);
+
+
+        if (FindObjectOfType<GameManager>()?.CurrentState == GameManager.State.Playing)
         {
             if (Input.touchSupported)
             {
@@ -34,67 +38,47 @@ public class TowerManager : MonoBehaviour
 
                 if (touch.phase == TouchPhase.Began)
                 {
-                    _newTower = Instantiate(_basicTower, touch.position, Quaternion.identity);
+                    _text.text = "Began Movement";
+                    _newTower = Instantiate(_basicTower, mousePos, Quaternion.identity);
                 }
                 else if (touch.phase == TouchPhase.Moved)
                 {
-                    _newTower.transform.position = touch.position;
+                    _text.text = "Moving";
+                    _newTower.transform.position = mousePos;
+                    _text.text = mousePos.ToString();
                 }
                 else if (touch.phase == TouchPhase.Ended)
                 {
-                    if (_basicTower.GetComponent<TowerBase>() != null)
-                    {
-                        _newTower.GetComponent<TowerBase>()
-                            .SetGravity(_newTower.GetComponent<TowerBase>().TowerGravity);
-                    }
+                    _text.text = "Placed Tower";
+                    _newTower?.GetComponent<TowerBase>()?.SetGravity(_newTower.GetComponent<TowerBase>().TowerGravity);
                 }
             }
             else
             {
-                
 
-                /*
                 if (Input.GetMouseButtonDown(0) && !_holdingTower)
                 {
-                    Debug.Log("Spawned Tower");
-                    _newTower = Instantiate(_basicTower, heldPos, Quaternion.identity);
+                    _text.text = "Began Movement";
+                    _newTower = Instantiate(_basicTower, mousePos, Quaternion.identity);
                     _holdingTower = true;
                 }
-                else if (Input.GetMouseButtonUp(0) && _holdingTower)
+
+                if (_holdingTower)
                 {
-                    Debug.Log("Released Tower");
-                    _newTower.GetComponent<TowerBase>().SetGravity(_newTower.GetComponent<TowerBase>().TowerGravity);
+                    _text.text = "Moving: " + mousePos.ToString();
+                    _newTower.transform.position = mousePos;
+                }
+
+                /*
+                if (Input.GetMouseButtonUp(0))
+                {
+                    _text.text = "Placed Tower";
                     _holdingTower = false;
+                    _newTower.GetComponent<TowerBase>()?.SetGravity(_newTower.GetComponent<TowerBase>().TowerGravity);
                 }
                 */
-
-                if (Input.GetMouseButton(0))
-                {
-                    var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    mousePos.z = 0f;
-                    Debug.Log(mousePos);
-
-                    if (Input.GetMouseButtonDown(0) && !_holdingTower)
-                    {
-                        Debug.Log("Spawned Tower");
-                        _newTower = Instantiate(_basicTower, mousePos, Quaternion.identity);
-                        _holdingTower = true;
-                    }
-                    if (_holdingTower)
-                    {
-                        Debug.Log("Holding Tower: " + _newTower.transform.position);
-                        _newTower.transform.position = mousePos;
-                    }
-
-                    
-                }
-                else if (Input.GetMouseButtonUp(0) && _holdingTower)
-                {
-                    Debug.Log("Released Tower");
-                    _newTower.GetComponent<TowerBase>().SetGravity(_newTower.GetComponent<TowerBase>().TowerGravity);
-                    _holdingTower = false;
-                }
             }
         }
+        
     }
 }
