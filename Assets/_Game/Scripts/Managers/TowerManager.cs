@@ -30,23 +30,27 @@ public class TowerManager : MonoBehaviour
                 Vector3 pos = Camera.main.ScreenToWorldPoint(touch.position);
                 pos.z = 0;
 
-                if (touch.phase == TouchPhase.Began)
+                //Temporary for alpha - only place the tower below the ui
+                if (pos.y <= 23)
                 {
-                    _newTower = Instantiate(_basicTower, pos, Quaternion.identity);
-                    _newTower.GetComponent<Rigidbody2D>().freezeRotation = true;
-                    _holdingTower = true;
+                    if (touch.phase == TouchPhase.Began)
+                    {
+                        _newTower = Instantiate(_basicTower, pos, Quaternion.identity);
+                        _newTower.GetComponent<Rigidbody2D>().freezeRotation = true;
+                        _holdingTower = true;
 
-                }
-                else if (touch.phase == TouchPhase.Moved)
-                {
-                    _newTower.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
-                    _newTower.transform.position = pos;
-                }
-                else if (touch.phase == TouchPhase.Ended)
-                {
-                    _holdingTower = false;
-                    _newTower.GetComponent<Rigidbody2D>().freezeRotation = false;
-                    _newTower.GetComponent<TowerBase>()?.SetGravity(_newTower.GetComponent<TowerBase>().TowerGravity);
+                    }
+                    else if (touch.phase == TouchPhase.Moved)
+                    {
+                        _newTower.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+                        _newTower.transform.position = pos;
+                    }
+                    else if (touch.phase == TouchPhase.Ended)
+                    {
+                        _holdingTower = false;
+                        _newTower.GetComponent<Rigidbody2D>().freezeRotation = false;
+                        _newTower.GetComponent<TowerBase>()?.SetGravity(_newTower.GetComponent<TowerBase>().TowerGravity);
+                    }
                 }
             }
             else
@@ -54,24 +58,28 @@ public class TowerManager : MonoBehaviour
                 Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 pos.z = 0;
 
-                if (Input.GetMouseButtonDown(0) && !_holdingTower)
+                //Temporary for alpha - only place the tower below the ui
+                if (pos.y <= 23)
                 {
-                    _newTower = Instantiate(_basicTower, pos, Quaternion.identity);
-                    _newTower.GetComponent<Rigidbody2D>().freezeRotation = true;
-                    _holdingTower = true;
-                }
+                    if (Input.GetMouseButtonDown(0) && !_holdingTower)
+                    {
+                        _newTower = Instantiate(_basicTower, pos, Quaternion.identity);
+                        _newTower.GetComponent<Rigidbody2D>().freezeRotation = true;
+                        _holdingTower = true;
+                    }
 
-                if (_holdingTower)
-                {
-                    _newTower.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
-                    _newTower.transform.position = pos;
-                }
+                    if (_holdingTower)
+                    {
+                        _newTower.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+                        _newTower.transform.position = pos;
+                    }
 
-                if (Input.GetMouseButtonUp(0))
-                {
-                    _holdingTower = false;
-                    _newTower.GetComponent<Rigidbody2D>().freezeRotation = false;
-                    _newTower.GetComponent<TowerBase>()?.SetGravity(_newTower.GetComponent<TowerBase>().TowerGravity);
+                    if (Input.GetMouseButtonUp(0))
+                    {
+                        _holdingTower = false;
+                        _newTower.GetComponent<Rigidbody2D>().freezeRotation = false;
+                        _newTower.GetComponent<TowerBase>()?.SetGravity(_newTower.GetComponent<TowerBase>().TowerGravity);
+                    }
                 }
                 
             }
