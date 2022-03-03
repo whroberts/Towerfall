@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy1 : EnemyBase
+public class BasicEnemy : EnemyBase
 {
     float _storedMoveSpeed = 0f;
 
