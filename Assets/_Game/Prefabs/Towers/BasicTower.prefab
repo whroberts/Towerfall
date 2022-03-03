@@ -357,7 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555415f3a884f4e48b30a56281b87dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canShoot: 0
+  _canShoot: 1
   _towerGravity: 2
   _towerFireRate: 1.25
   _towerRotRecoil: 2000
@@ -367,6 +367,6 @@ MonoBehaviour:
   _reloadTime: 3
   _currentHealth: 0
   _totalHealth: 25
-  _timeToStartFiring: 1
+  _timeToStartFiring: 0.25
   _projectileRef: {fileID: 8038344099624028802, guid: 218fbd072c75cb246ba7d2ce97f66843,
     type: 3}

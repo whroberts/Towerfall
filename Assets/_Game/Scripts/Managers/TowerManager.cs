@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,8 +8,6 @@ public class TowerManager : MonoBehaviour
 {
     [SerializeField] private GameObject _basicTower = null;
     [SerializeField] private GameObject _sniperTower = null;
-    [SerializeField] private Text _text = null;
-
 
     private bool _holdingTower = false;
 
@@ -24,59 +22,58 @@ public class TowerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Debug.Log("Raw: " + mousePos);
-        mousePos.z = 35;
-        Debug.Log("Filtered: " + mousePos);
-
-
         if (FindObjectOfType<GameManager>()?.CurrentState == GameManager.State.Playing)
         {
             if (Input.touchSupported)
             {
                 Touch touch = Input.GetTouch(0);
+                Vector3 pos = Camera.main.ScreenToWorldPoint(touch.position);
+                pos.z = 0;
 
                 if (touch.phase == TouchPhase.Began)
                 {
-                    _text.text = "Began Movement";
-                    _newTower = Instantiate(_basicTower, mousePos, Quaternion.identity);
+                    _newTower = Instantiate(_basicTower, pos, Quaternion.identity);
+                    _newTower.GetComponent<Rigidbody2D>().freezeRotation = true;
+                    _holdingTower = true;
+
                 }
                 else if (touch.phase == TouchPhase.Moved)
                 {
-                    _text.text = "Moving";
-                    _newTower.transform.position = mousePos;
-                    _text.text = mousePos.ToString();
+                    _newTower.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+                    _newTower.transform.position = pos;
                 }
                 else if (touch.phase == TouchPhase.Ended)
                 {
-                    _text.text = "Placed Tower";
-                    _newTower?.GetComponent<TowerBase>()?.SetGravity(_newTower.GetComponent<TowerBase>().TowerGravity);
+                    _holdingTower = false;
+                    _newTower.GetComponent<Rigidbody2D>().freezeRotation = false;
+                    _newTower.GetComponent<TowerBase>()?.SetGravity(_newTower.GetComponent<TowerBase>().TowerGravity);
                 }
             }
             else
             {
+                Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                pos.z = 0;
 
                 if (Input.GetMouseButtonDown(0) && !_holdingTower)
                 {
-                    _text.text = "Began Movement";
-                    _newTower = Instantiate(_basicTower, mousePos, Quaternion.identity);
+                    _newTower = Instantiate(_basicTower, pos, Quaternion.identity);
+                    _newTower.GetComponent<Rigidbody2D>().freezeRotation = true;
                     _holdingTower = true;
                 }
 
                 if (_holdingTower)
                 {
-                    _text.text = "Moving: " + mousePos.ToString();
-                    _newTower.transform.position = mousePos;
+                    _newTower.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+                    _newTower.transform.position = pos;
                 }
 
-                /*
                 if (Input.GetMouseButtonUp(0))
                 {
-                    _text.text = "Placed Tower";
                     _holdingTower = false;
+                    _newTower.GetComponent<Rigidbody2D>().freezeRotation = false;
                     _newTower.GetComponent<TowerBase>()?.SetGravity(_newTower.GetComponent<TowerBase>().TowerGravity);
                 }
-                */
+                
             }
         }
         
