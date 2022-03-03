@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class WallToDefend : MonoBehaviour, IDamagable
 {
@@ -12,6 +13,8 @@ public class WallToDefend : MonoBehaviour, IDamagable
     private Collider2D _col;
     private SpriteRenderer _sprite;
 
+    private TextMeshProUGUI _healthText;
+
     private void Awake()
     {
         _col = GetComponent<Collider2D>();
@@ -19,10 +22,16 @@ public class WallToDefend : MonoBehaviour, IDamagable
         _currentHealth = _totalHealth;
     }
 
+    private void Start()
+    {
+        _healthText = GetComponentInChildren<TextMeshProUGUI>();
+    }
+
     public void TakeDamage(int damage)
     {
         Debug.Log("Took Damage");
         _currentHealth -= damage;
+        _healthText.text = _currentHealth + "/" + _totalHealth;
 
         if (_currentHealth <= 0)
         {

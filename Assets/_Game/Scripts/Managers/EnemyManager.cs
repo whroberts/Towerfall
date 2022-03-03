@@ -32,6 +32,13 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    public void SpawnSingleEnemy()
+    {
+        GameObject enemy = Instantiate(_enemy1, gameObject.transform.position, Quaternion.identity);
+        enemy.transform.position = new Vector3(30, 0, 0);
+        enemy.transform.rotation = Quaternion.identity;
+    }
+
     void SetEnemiesToSpawn()
     {
         for (int i = 0; i < _currentRound; i++)
