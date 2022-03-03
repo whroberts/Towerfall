@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     private State currentState = State.Intro;
     public State CurrentState => currentState;
 
-
     private bool _isPaused = true;
     public bool IsPaused => _isPaused;
     void Start()
@@ -23,16 +22,20 @@ public class GameManager : MonoBehaviour
 
         //Begin frozen
         Time.timeScale = 0;
+
+        //Lock to landscape
+        Screen.orientation = ScreenOrientation.Landscape;
     }
 
     void Update()
     {
+        
         //Handling the game states
         switch (currentState)
         {
-            //Press F to start the game
+            //Press F to start the game, or tap on the intro menu
             case State.Intro:
-                if (Input.GetKeyDown(KeyCode.F))
+                if (Input.GetKeyDown(KeyCode.F) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
                     BeginPlay();
                 break;
 
