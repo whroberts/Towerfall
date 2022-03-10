@@ -1,37 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
     public enum State {Intro, Paused, Playing, End};
-    public GameObject mainMenuPanel, gamePanel, pausePanel, losePanel;
-    private State currentState = State.Intro;
-    public State CurrentState => currentState;
+    public GameObject _mainMenuPanel, _gamePanel, _pausePanel, _losePanel;
+    private State _currentState = State.Intro;
+    public State CurrentState => _currentState;
 
     private bool _isPaused = true;
     public bool IsPaused => _isPaused;
     void Start()
     {
-        currentState = State.Intro;
-        mainMenuPanel.SetActive(true);
-        gamePanel.SetActive(false);
-        pausePanel.SetActive(false);
-        losePanel.SetActive(false);
+        _currentState = State.Intro;
+        _mainMenuPanel.SetActive(true);
+        _gamePanel.SetActive(false);
+        _pausePanel.SetActive(false);
+        _losePanel.SetActive(false);
 
         //Begin frozen
         Time.timeScale = 0;
 
         //Lock to landscape
         Screen.orientation = ScreenOrientation.Landscape;
+
+        DOTween.Init();
     }
 
     void Update()
     {
         
         //Handling the game states
-        switch (currentState)
+        switch (_currentState)
         {
             //Press F to start the game, or tap on the intro menu
             case State.Intro:
@@ -41,17 +45,18 @@ public class GameManager : MonoBehaviour
 
             case State.Playing:
                 if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
-                    Pause();
+                    BeginPause();
                 else if (Input.GetKeyDown(KeyCode.R))
                     ReloadScene();
 
-                    if (FindObjectOfType<WallToDefend>().IsDefeated)
-                    EndPlay();
+                if (FindObjectOfType<WallToDefend>().IsDefeated)
+                    BeginEnd();
+
                 break;
 
             case State.Paused:
                 if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
-                    UnPause();
+                    BeginUnpause();
                 break;
 
             case State.End:
@@ -64,41 +69,64 @@ public class GameManager : MonoBehaviour
     public void BeginPlay()
     {
         Time.timeScale = 1;
-        _isPaused = false;
-        mainMenuPanel.SetActive(false);
-        gamePanel.SetActive(true);
+        _gamePanel.SetActive(true);
 
-        currentState = State.Playing;
+        _mainMenuPanel.transform.DOScale(0f, 0.3f);
+        _gamePanel.transform.DOMoveY(_gamePanel.transform.position.y + 500, 1f, false).From().OnComplete(Play);
+        
     }
 
-    public void Pause()
+    private void Play()
+    {
+        _isPaused = false;
+        _currentState = State.Playing;
+    }
+
+    public void BeginPause()
+    {
+        _gamePanel.transform.DOMoveY(_gamePanel.transform.position.y + 500, 0.3f, false);
+        _pausePanel.SetActive(true);
+        _pausePanel.transform.DOScale(0f, 0.3f).From().OnComplete(Pause);
+    }
+
+    private void Pause()
     {
         Time.timeScale = 0;
+        _gamePanel.SetActive(false);
         _isPaused = true;
-        gamePanel.SetActive(false);
-        pausePanel.SetActive(true);
-
-        currentState = State.Paused;
+        _currentState = State.Paused;
     }
 
-    public void UnPause()
+    public void BeginUnpause()
     {
         Time.timeScale = 1;
-        _isPaused = false;
-        pausePanel.SetActive(false);
-        gamePanel.SetActive(true);
-
-        currentState = State.Playing;
+        _gamePanel.SetActive(true);
+        _gamePanel.transform.DOMoveY(_gamePanel.transform.position.y - 500, 0.3f, false);
+        _pausePanel.transform.DOScale(0f, 0.3f).OnComplete(UnPause);
     }
 
-    public void EndPlay()
+    private void UnPause()
+    {
+        _pausePanel.SetActive(false);
+        _isPaused = false;
+        _currentState = State.Playing;
+        _pausePanel.transform.localScale = Vector3.one;
+    }
+
+    public void BeginEnd()
+    {
+        _gamePanel.transform.DOMoveY(_gamePanel.transform.position.y + 500, 0.3f, false);
+        _losePanel.transform.localScale = Vector3.zero;
+        _losePanel.SetActive(true);
+        _losePanel.transform.DOScale(1f, 0.3f).OnComplete(EndPlay);
+    }
+
+    private void EndPlay()
     {
         Time.timeScale = 0;
         _isPaused = true;
-        gamePanel.SetActive(false);
-        losePanel.SetActive(true);
-
-        currentState = State.End;
+        _gamePanel.SetActive(false);
+        _currentState = State.End;
     }
 
     public void ReloadScene()
