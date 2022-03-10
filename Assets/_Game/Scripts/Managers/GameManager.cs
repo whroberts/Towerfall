@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,6 +27,8 @@ public class GameManager : MonoBehaviour
 
         //Lock to landscape
         Screen.orientation = ScreenOrientation.Landscape;
+
+        DOTween.Init();
     }
 
     void Update()
@@ -41,17 +45,18 @@ public class GameManager : MonoBehaviour
 
             case State.Playing:
                 if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
-                    Pause();
+                    BeginPause();
                 else if (Input.GetKeyDown(KeyCode.R))
                     ReloadScene();
 
-                    if (FindObjectOfType<WallToDefend>().IsDefeated)
-                    EndPlay();
+                if (FindObjectOfType<WallToDefend>().IsDefeated)
+                    BeginEnd();
+
                 break;
 
             case State.Paused:
                 if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
-                    UnPause();
+                    BeginUnpause();
                 break;
 
             case State.End:
@@ -64,40 +69,63 @@ public class GameManager : MonoBehaviour
     public void BeginPlay()
     {
         Time.timeScale = 1;
-        _isPaused = false;
-        _mainMenuPanel.SetActive(false);
         _gamePanel.SetActive(true);
 
+        _mainMenuPanel.transform.DOScale(0f, 0.3f);
+        _gamePanel.transform.DOMoveY(_gamePanel.transform.position.y + 500, 1f, false).From().OnComplete(Play);
+        
+    }
+
+    private void Play()
+    {
+        _isPaused = false;
         _currentState = State.Playing;
     }
 
-    public void Pause()
+    public void BeginPause()
+    {
+        _gamePanel.transform.DOMoveY(_gamePanel.transform.position.y + 500, 0.3f, false);
+        _pausePanel.SetActive(true);
+        _pausePanel.transform.DOScale(0f, 0.3f).From().OnComplete(Pause);
+    }
+
+    private void Pause()
     {
         Time.timeScale = 0;
-        _isPaused = true;
         _gamePanel.SetActive(false);
-        _pausePanel.SetActive(true);
-
+        _isPaused = true;
         _currentState = State.Paused;
     }
 
-    public void UnPause()
+    public void BeginUnpause()
     {
         Time.timeScale = 1;
-        _isPaused = false;
-        _pausePanel.SetActive(false);
         _gamePanel.SetActive(true);
-
-        _currentState = State.Playing;
+        _gamePanel.transform.DOMoveY(_gamePanel.transform.position.y - 500, 0.3f, false);
+        _pausePanel.transform.DOScale(0f, 0.3f).OnComplete(UnPause);
     }
 
-    public void EndPlay()
+    private void UnPause()
+    {
+        _pausePanel.SetActive(false);
+        _isPaused = false;
+        _currentState = State.Playing;
+        _pausePanel.transform.localScale = Vector3.one;
+    }
+
+    public void BeginEnd()
+    {
+        _gamePanel.transform.DOMoveY(_gamePanel.transform.position.y + 500, 0.3f, false);
+        _losePanel.transform.localScale = Vector3.zero;
+        _losePanel.SetActive(true);
+        _losePanel.transform.DOScale(1f, 0.3f).OnComplete(EndPlay);
+    }
+
+    private void EndPlay()
     {
         Time.timeScale = 0;
         _isPaused = true;
         _gamePanel.SetActive(false);
-        _losePanel.SetActive(true);
-
         _currentState = State.End;
     }
 
