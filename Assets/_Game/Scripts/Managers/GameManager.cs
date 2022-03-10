@@ -6,19 +6,19 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public enum State {Intro, Paused, Playing, End};
-    public GameObject mainMenuPanel, gamePanel, pausePanel, losePanel;
-    private State currentState = State.Intro;
-    public State CurrentState => currentState;
+    public GameObject _mainMenuPanel, _gamePanel, _pausePanel, _losePanel;
+    private State _currentState = State.Intro;
+    public State CurrentState => _currentState;
 
     private bool _isPaused = true;
     public bool IsPaused => _isPaused;
     void Start()
     {
-        currentState = State.Intro;
-        mainMenuPanel.SetActive(true);
-        gamePanel.SetActive(false);
-        pausePanel.SetActive(false);
-        losePanel.SetActive(false);
+        _currentState = State.Intro;
+        _mainMenuPanel.SetActive(true);
+        _gamePanel.SetActive(false);
+        _pausePanel.SetActive(false);
+        _losePanel.SetActive(false);
 
         //Begin frozen
         Time.timeScale = 0;
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     {
         
         //Handling the game states
-        switch (currentState)
+        switch (_currentState)
         {
             //Press F to start the game, or tap on the intro menu
             case State.Intro:
@@ -65,40 +65,40 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         _isPaused = false;
-        mainMenuPanel.SetActive(false);
-        gamePanel.SetActive(true);
+        _mainMenuPanel.SetActive(false);
+        _gamePanel.SetActive(true);
 
-        currentState = State.Playing;
+        _currentState = State.Playing;
     }
 
     public void Pause()
     {
         Time.timeScale = 0;
         _isPaused = true;
-        gamePanel.SetActive(false);
-        pausePanel.SetActive(true);
+        _gamePanel.SetActive(false);
+        _pausePanel.SetActive(true);
 
-        currentState = State.Paused;
+        _currentState = State.Paused;
     }
 
     public void UnPause()
     {
         Time.timeScale = 1;
         _isPaused = false;
-        pausePanel.SetActive(false);
-        gamePanel.SetActive(true);
+        _pausePanel.SetActive(false);
+        _gamePanel.SetActive(true);
 
-        currentState = State.Playing;
+        _currentState = State.Playing;
     }
 
     public void EndPlay()
     {
         Time.timeScale = 0;
         _isPaused = true;
-        gamePanel.SetActive(false);
-        losePanel.SetActive(true);
+        _gamePanel.SetActive(false);
+        _losePanel.SetActive(true);
 
-        currentState = State.End;
+        _currentState = State.End;
     }
 
     public void ReloadScene()
