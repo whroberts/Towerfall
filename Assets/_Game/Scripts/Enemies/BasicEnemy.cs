@@ -14,7 +14,7 @@ public class BasicEnemy : EnemyBase
         // play attack animation
 
         // stores all colliders hit in front of enemy
-        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(_enemyCheck.transform.position, _attackRange);
+        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(_attackTrigger.transform.position, _attackRange);
 
 
         foreach (Collider2D col in hitObjects)
@@ -46,7 +46,7 @@ public class BasicEnemy : EnemyBase
     //draws the attack zone in the scene
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(_enemyCheck.transform.position, _attackRange);
+        Gizmos.DrawWireSphere(_attackTrigger.transform.position, _attackRange);
     }
 
 

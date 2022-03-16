@@ -4,7 +4,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Animator))]
 public abstract class EnemyBase : MonoBehaviour, IDamagable
 {
     //public abstract void Attack();
@@ -24,10 +23,16 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     [SerializeField] protected int _onHitDamage = 12;
     [SerializeField] protected float _attackRange = 5;
     [SerializeField] protected int _attackRate = 1;
-    [SerializeField] protected CircleCollider2D _enemyCheck = null;
 
     Collider2D _col;
     Rigidbody2D _rb;
+
+    public int CurrentHealth => _currentHealth;
+    public int TotalHealth => _totalHealth;
+    public int OnHitDamage => _onHitDamage;
+    public float AttackRange => _attackRange;
+    public int AttackRate => _attackRate;
+    public bool AppliesForce => _attackAppliesForce;
 
     void Awake()
     {
@@ -35,7 +40,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
         _rb = GetComponent<Rigidbody2D>();
 
         _currentHealth = _totalHealth;
-        _enemyCheck.radius = _attackRange;
+        _attackTrigger.radius = _attackRange;
     }
 
     void FixedUpdate()
