@@ -14,9 +14,9 @@ public class BasicEnemy : EnemyBase
         // play attack animation
 
         // stores all colliders hit in front of enemy
-        Collider2D[] hitObjects = Physics2D.OverlapCircleAll(_attackTrigger.transform.position, _attackRange);
-
-
+        /*
+         * Collider2D[] hitObjects = Physics2D.OverlapCircleAll(_attackTrigger.transform.position, _attackRange);
+         * 
         foreach (Collider2D col in hitObjects)
         {
 
@@ -35,6 +35,7 @@ public class BasicEnemy : EnemyBase
                 damagable.TakeDamage(_onHitDamage);
             }
         }
+        */
     }
 
     IEnumerator ResetMoveSpeed()
@@ -43,12 +44,13 @@ public class BasicEnemy : EnemyBase
         _enemyMoveSpeed = _storedMoveSpeed;
     }
 
+    /*
     //draws the attack zone in the scene
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(_attackTrigger.transform.position, _attackRange);
     }
-
+    */
 
     //begins when this enemy reaches a tower within its attack radius
     private void OnTriggerEnter2D(Collider2D collision)

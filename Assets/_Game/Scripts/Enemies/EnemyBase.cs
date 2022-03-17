@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
-[RequireComponent(typeof(Rigidbody2D))]
 public abstract class EnemyBase : MonoBehaviour, IDamagable
 {
     //public abstract void Attack();
@@ -25,7 +23,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     [SerializeField] protected int _attackRate = 1;
 
     Collider2D _col;
-    Rigidbody2D _rb;
+    protected Rigidbody2D _rb;
 
     public int CurrentHealth => _currentHealth;
     public int TotalHealth => _totalHealth;
@@ -40,7 +38,6 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
         _rb = GetComponent<Rigidbody2D>();
 
         _currentHealth = _totalHealth;
-        _attackTrigger.radius = _attackRange;
     }
 
     void FixedUpdate()

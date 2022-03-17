@@ -53,7 +53,7 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
         _currentAmmo = _totalAmmo;
 
         //must be zero for touch placement
-        _rb.gravityScale = 0;
+        //_rb.gravityScale = 0;
     }
 
     public abstract void PrintOnStart();

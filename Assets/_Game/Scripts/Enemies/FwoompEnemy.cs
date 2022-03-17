@@ -26,8 +26,10 @@ public class FwoompEnemy : EnemyBase
     //Animation _animation;
 
     float _storedMoveSpeed = 0f;
-    bool _jumped = false;
-    bool _jumpCompleted = false;
+    private bool _jumped = false;
+    public bool Jumped => _jumped;
+    private bool _jumpCompleted = false;
+    public bool JumpCompleted => _jumpCompleted;
 
     private void Start()
     {
@@ -73,71 +75,73 @@ public class FwoompEnemy : EnemyBase
         clip.legacy = false;
 
         controller.AddLayer("1");
-        controller.AddMotion(clip,0);
+
+        AnimatorState jump = new AnimatorState();
+        AnimatorState idle = new AnimatorState();
+        idle.name = "Idle";
+        jump.motion = clip;
+        jump.name = "Jump";
+
+
+        idle.AddTransition(jump);
+        idle.transitions[0].hasExitTime = true;
+        idle.transitions[0].exitTime = 0f;
+        idle.transitions[0].duration = 0f;
+
+        jump.AddTransition(idle);
+        jump.transitions[0].hasExitTime = true;
+        jump.transitions[0].exitTime = 0f;
+        jump.transitions[0].duration = 0f;
+
+        controller.layers[0].stateMachine.AddState(idle, new Vector3(100, 100));
+        controller.layers[0].stateMachine.defaultState = idle;
+        controller.layers[0].stateMachine.AddState(jump,new Vector3(200,100));
+        //controller.layers[0].stateMachine.AddState(idle, new Vector3(100, 100));
+        //controller.AddMotion(clip,0);
 
         _animator.runtimeAnimatorController = controller;
 
         StartCoroutine(JumpState(clip.length));
-
-        //controller.AddClip(clip, "Temp");
-        //_animation.Play("Temp");
     }
 
     IEnumerator JumpState(float length)
     {
+        Debug.Log("JumpState called");
         _animator.Play("Jump");
         yield return new WaitForSeconds(length);
+        _rb.position = transform.position;
+        _animator.StopPlayback();
         _jumpCompleted = true;
+        _jumped = false;
     }
 
-    //draws the attack zone in the scene
-    private void OnDrawGizmosSelected()
+    public void IsMoving(bool move)
     {
-        Gizmos.DrawWireSphere(_attackTrigger.transform.position, _attackRange);
+        if (move)
+        {
+            _enemyMoveSpeed = _storedMoveSpeed;
+            _storedMoveSpeed = 0;
+        }
+        else
+        {
+            _storedMoveSpeed = _enemyMoveSpeed;
+            _enemyMoveSpeed = 0;
+            Debug.Log(_storedMoveSpeed);
+        }
     }
-
 
     //begins when this enemy reaches a tower within its attack radius
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        #region Dealing Damage
-        IDamagable damagable = collision.gameObject.GetComponent<IDamagable>();
-        if (damagable != null)
+        if (collision.GetComponent<TowerBase>() != null && !_jumpCompleted)
         {
-            if (collision.GetComponent<TowerBase>() != null && _jumpCompleted)
+            if (!_jumped)
             {
-                TowerBase tower = collision.GetComponent<TowerBase>();
+                IsMoving(false);
+                JumpOnTower(collision.gameObject);
 
-                Debug.Log(collision.gameObject.name + " is being attacked");
-
-                //NOT A PERMANENT SOLUTION
-                tower.StopAllCoroutines();
-                tower.CancelInvoke();
-
-                InvokeRepeating("Attack", 1f, _attackRate);
-            }
-            else if (collision.GetComponent<TowerBase>() != null && !_jumpCompleted)
-            {
-                _storedMoveSpeed = _enemyMoveSpeed;
-                _enemyMoveSpeed = 0;
-
-                if (!_jumped)
-                {
-                    JumpOnTower(collision.gameObject);
-                    _jumped = true;
-                }
-            }
-        }
-        #endregion
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.GetComponent<IDamagable>() != null)
-        {
-            if (collision.gameObject.GetComponent<TowerBase>() != null && _jumped && _jumpCompleted)
-            {
-                Debug.Log("Killed Enemy");
+                _jumped = true;
+                _jumpCompleted = false;
             }
         }
     }

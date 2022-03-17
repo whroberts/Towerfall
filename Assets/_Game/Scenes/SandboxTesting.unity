@@ -5141,6 +5141,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7945541430965645824, guid: d3cf38db469e27949a8e67b1f5b72fe7,
+        type: 3}
+      propertyPath: m_Mass
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945541430965645824, guid: d3cf38db469e27949a8e67b1f5b72fe7,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7945541430965645826, guid: d3cf38db469e27949a8e67b1f5b72fe7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5149,7 +5159,7 @@ PrefabInstance:
     - target: {fileID: 7945541430965645826, guid: d3cf38db469e27949a8e67b1f5b72fe7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 6.9
       objectReference: {fileID: 0}
     - target: {fileID: 7945541430965645826, guid: d3cf38db469e27949a8e67b1f5b72fe7,
         type: 3}
@@ -5200,6 +5210,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PF_FwoompEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945541430965645830, guid: d3cf38db469e27949a8e67b1f5b72fe7,
+        type: 3}
+      propertyPath: _attackAppliesForce
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945541430965645831, guid: d3cf38db469e27949a8e67b1f5b72fe7,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945541430965645831, guid: d3cf38db469e27949a8e67b1f5b72fe7,
+        type: 3}
+      propertyPath: m_CullingMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3cf38db469e27949a8e67b1f5b72fe7, type: 3}
