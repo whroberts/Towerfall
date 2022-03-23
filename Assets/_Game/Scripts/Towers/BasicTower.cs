@@ -5,6 +5,7 @@ using UnityEngine;
 public class BasicTower : TowerBase
 {
     [SerializeField] private GameObject _projectileRef = null;
+    private bool reloading = false;
 
     public override void PrintOnStart()
     {
@@ -14,8 +15,8 @@ public class BasicTower : TowerBase
     public virtual void UpdateAmmoCount()
     {
         // might be completely unnecessary but we need to pull the UI updater out of the repeating shooting function
-
-        transform.GetChild(1).GetComponent<TextMesh>().text = ("Ammo: " + _currentAmmo + " / " + _totalAmmo);
+        transform.GetChild(2).localScale = new Vector3(transform.GetChild(2).localScale.x, (_currentAmmo / _totalAmmo) * 3.0f, transform.GetChild(2).localScale.z);
+        //transform.GetChild(1).GetComponent<TextMesh>().text = ("Ammo: " + _currentAmmo + " / " + _totalAmmo);
     }
 
     public override void Shoot()
@@ -35,12 +36,6 @@ public class BasicTower : TowerBase
             UpdateAmmoCount();
         }
 
-        //implemented the reload option
-        else if (_currentAmmo <= 0)
-        {
-            StartCoroutine(Reload());
-        }
-
     }
 
     public override IEnumerator Reload()
@@ -48,11 +43,17 @@ public class BasicTower : TowerBase
         //cancels the attack
         CancelInvoke();
 
+        StartCoroutine(Timer(_reloadTime));
+
         //waits for the reload time
         yield return new WaitForSeconds(_reloadTime);
 
         //resets the ammo count
         _currentAmmo = _totalAmmo;
+
+        reloading = false;
+
+        transform.GetChild(2).GetComponent<SpriteRenderer>().color = new Color32(255, 200, 0, 125);
 
         //sets UI
         UpdateAmmoCount();
@@ -79,6 +80,13 @@ public class BasicTower : TowerBase
         {
             _canShoot = false;
         }
+
+        //implemented the reload option
+        if (_currentAmmo <= 0 && reloading == false)
+        {
+            reloading = true;
+            StartCoroutine(Reload());
+        }
     }
 
     
@@ -91,4 +99,22 @@ public class BasicTower : TowerBase
 
         UpdateAmmoCount();
     }
+
+    IEnumerator Timer(float initDur)
+    {
+
+        transform.GetChild(2).GetComponent<SpriteRenderer>().color = new Color32(255, 250, 200, 125);
+
+        float duration = 0;
+
+        while (duration < initDur)
+        {
+            duration += Time.deltaTime;
+
+            transform.GetChild(2).localScale = new Vector3(transform.GetChild(2).localScale.x, ((duration / initDur) * 3.0f), transform.GetChild(2).localScale.z);
+
+            yield return null;
+        }
+    }
+
 }

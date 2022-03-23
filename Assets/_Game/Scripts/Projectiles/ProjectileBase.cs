@@ -24,6 +24,11 @@ public abstract class ProjectileBase : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
     }
 
+    private void FixedUpdate()
+    {
+        transform.rotation = Quaternion.AngleAxis((Mathf.Atan2(_rb.velocity.y, _rb.velocity.x) * Mathf.Rad2Deg), Vector3.forward);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
