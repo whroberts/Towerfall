@@ -8,7 +8,7 @@ using DG.Tweening;
 public class GameManager : MonoBehaviour
 {
     public enum State {Intro, Paused, Playing, End};
-    public GameObject _mainMenuPanel, _gamePanel, _pausePanel, _losePanel;
+    public GameObject _mainMenuPanel, _gamePanel, _pausePanel, _losePanel, _towerHealthText, _tutorialPanel, _infoPanel;
     private State _currentState = State.Intro;
     public State CurrentState => _currentState;
 
@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
         _gamePanel.SetActive(false);
         _pausePanel.SetActive(false);
         _losePanel.SetActive(false);
+        _towerHealthText.SetActive(false);
+        _tutorialPanel.SetActive(false);
+        _infoPanel.SetActive(false);
 
         //Begin frozen
         Time.timeScale = 0;
@@ -79,7 +82,20 @@ public class GameManager : MonoBehaviour
     private void Play()
     {
         _isPaused = false;
+        _towerHealthText.SetActive(true);
+        _tutorialPanel.SetActive(true);
         _currentState = State.Playing;
+        _tutorialPanel.transform.DOScale(0f, 0.5f).From().OnComplete(TutorialPulse);
+    }
+
+    private void TutorialPulse()
+    {
+        _tutorialPanel.transform.DOScale(0.9f, 0.5f).SetLoops(10, LoopType.Yoyo).OnComplete(TutorialFade);
+    }
+
+    private void TutorialFade()
+    {
+        _tutorialPanel.transform.DOScale(0f, 0.5f);
     }
 
     public void BeginPause()
@@ -111,6 +127,18 @@ public class GameManager : MonoBehaviour
         _isPaused = false;
         _currentState = State.Playing;
         _pausePanel.transform.localScale = Vector3.one;
+    }
+
+    public void InfoShow()
+    {
+        _pausePanel.SetActive(false);
+        _infoPanel.SetActive(true);
+    }
+
+    public void InfoHide()
+    {
+        _infoPanel.SetActive(false);
+        _pausePanel.SetActive(true);
     }
 
     public void BeginEnd()
