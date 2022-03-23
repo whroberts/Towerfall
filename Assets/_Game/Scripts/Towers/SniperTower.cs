@@ -5,6 +5,7 @@ using UnityEngine;
 public class SniperTower : TowerBase
 {
     [SerializeField] private GameObject _projectileRef = null;
+    [SerializeField] private GameObject _particleRef = null;
     private bool reloading = false;
 
     public override void PrintOnStart()
@@ -26,6 +27,9 @@ public class SniperTower : TowerBase
             //throw new System.NotImplementedException();
 
             Instantiate(_projectileRef, _shootPosition.position, _shootPosition.rotation);
+
+            GameObject prt = Instantiate(_particleRef, _shootPosition.position, _shootPosition.rotation);
+            prt.transform.rotation = Quaternion.Euler(prt.transform.rotation.x, prt.transform.rotation.y, prt.transform.rotation.z - 60f);
 
             //Rotational recoil from shooting
             _rb.AddTorque(_towerRotRecoil);

@@ -523,6 +523,8 @@ MonoBehaviour:
   _timeToStartFiring: 0.25
   _projectileRef: {fileID: 8038344099624028802, guid: 218fbd072c75cb246ba7d2ce97f66843,
     type: 3}
+  _particleRef: {fileID: 169816216472229275, guid: c2e1f75795eaaa143918eddf6205f633,
+    type: 3}
 --- !u!1 &6452039644935288331
 GameObject:
   m_ObjectHideFlags: 0
