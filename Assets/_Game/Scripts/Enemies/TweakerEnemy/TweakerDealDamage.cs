@@ -30,7 +30,6 @@ public class TweakerDealDamage : MonoBehaviour
 
         foreach (Collider2D col in hitObjects)
         {
-
             //scans all colliders for damagable objects
             IDamagable damagable = col.gameObject.GetComponent<IDamagable>();
 
@@ -38,9 +37,8 @@ public class TweakerDealDamage : MonoBehaviour
             {
                 //if there is a tower, the enemy attacks dealing damage to the tower
                 // does not apply a force with the attacks
-                if (_base.AppliesForce)
+                if (_base.AppliesForce && col.GetComponent<Rigidbody2D>() != null)
                 {
-                    Debug.Log("Applied");
                     col.GetComponent<Rigidbody2D>().AddForce(new Vector2(-200, 100), ForceMode2D.Impulse);
                 }
 
@@ -49,9 +47,9 @@ public class TweakerDealDamage : MonoBehaviour
         }
     }
 
-    private void DealDamage(TowerBase tower)
+    private void DealDamage(TowerBase tower = null)
     {
-        InvokeRepeating("Attack", _base.AttackRate, _base.AttackRate);
+        InvokeRepeating("Attack", 3f, _base.AttackRate);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -60,7 +58,13 @@ public class TweakerDealDamage : MonoBehaviour
         {
             _attacking = true;
             _base.IsMoving(false);
+            Debug.Log("Here");
             DealDamage(collision?.GetComponent<TowerBase>());
+        }
+        else if (collision.GetComponent<WallToDefend>() != null)
+        {
+            _attacking = true;
+            DealDamage();
         }
     }
 

@@ -36,9 +36,9 @@ public class FwoompEnemy : EnemyBase
         _fwoompAnimation = GetComponent<FwoompAnimation>();
     }
 
-    private IEnumerator JumpState(GameObject tower)
+    private IEnumerator JumpState(GameObject tower, int multiplier = 2)
     {
-        var clip = _fwoompAnimation.JumpOnTower(tower);
+        var clip = _fwoompAnimation.JumpOnTower(tower, multiplier);
         _anim.AddClip(clip, clip.name);
         _anim.Play(clip.name);
         yield return new WaitForSeconds(clip.length);
@@ -70,6 +70,18 @@ public class FwoompEnemy : EnemyBase
             {
                 IsMoving(false);
                 StartCoroutine(JumpState(collision.gameObject));
+
+                _jumped = true;
+                _jumpCompleted = false;
+            }
+        }
+        else if (collision.GetComponent<WallToDefend>() != null)
+        {
+            Debug.Log("Detected: " + collision.gameObject.name);
+            if (!_jumped)
+            {
+                IsMoving(false);
+                StartCoroutine(JumpState(collision.gameObject, 4));
 
                 _jumped = true;
                 _jumpCompleted = false;

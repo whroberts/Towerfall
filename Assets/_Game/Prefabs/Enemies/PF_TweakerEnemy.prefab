@@ -114,12 +114,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackAppliesForce: 1
   _moneyOnDeath: 15
-  _enemyMoveSpeed: 0
+  _enemyMoveSpeed: 3
   _currentHealth: 0
   _totalHealth: 300
   _onHitDamage: 20
   _attackRange: 1.5
-  _attackRate: 3
+  _attackRate: 2
 --- !u!114 &5011173113751989580
 MonoBehaviour:
   m_ObjectHideFlags: 0

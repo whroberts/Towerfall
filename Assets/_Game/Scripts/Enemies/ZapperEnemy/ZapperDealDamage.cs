@@ -40,7 +40,11 @@ public class ZapperDealDamage : MonoBehaviour
                 // does not apply a force with the attacks
                 if (_base.AppliesForce)
                 {
-                    col.GetComponent<Rigidbody2D>().AddForce(new Vector2(-25, -25), ForceMode2D.Impulse);
+                    if (col.GetComponent<Rigidbody2D>() != null)
+                    {
+                        col.GetComponent<Rigidbody2D>().AddForce(new Vector2(-25, -25), ForceMode2D.Impulse);
+                    }
+
                 }
 
                 damagable.TakeDamage(_base.OnHitDamage);
@@ -48,10 +52,10 @@ public class ZapperDealDamage : MonoBehaviour
         }
     }
 
-    private void DealDamage(TowerBase tower)
+    private void DealDamage(TowerBase tower = null)
     {
-        tower.StopAllCoroutines();
-        tower.CancelInvoke();
+        tower?.StopAllCoroutines();
+        tower?.CancelInvoke();
 
         InvokeRepeating("Attack", _base.AttackRate, _base.AttackRate);
     }
@@ -63,6 +67,11 @@ public class ZapperDealDamage : MonoBehaviour
             _attacking = true;
             _base.IsMoving(false);
             DealDamage(collision?.GetComponent<TowerBase>());
+        }
+        else if (collision.GetComponent<WallToDefend>() != null)
+        {
+            _attacking = true;
+            DealDamage();
         }
     }
 

@@ -85,22 +85,39 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        var enemy = collision.gameObject.GetComponent<EnemyBase>();
-        if (enemy != null)
+        var tower = collision.gameObject.GetComponent<TowerBase>();
+
+        if (tower == null)
         {
-            if (!_slowed)
+            var enemy = collision.gameObject.GetComponent<EnemyBase>();
+            if (enemy != null)
             {
-                StartCoroutine(SlowDown(enemy));
+                if (!_slowed)
+                {
+                    //StartCoroutine(SlowDown(this, enemy));
+                    SlowDown1(this, enemy);
+                }
             }
         }
+
+    }
+    
+    private void SlowDown1(EnemyBase self, EnemyBase enemy)
+    {
+        _slowed = true;
+        _standardMoveSpeed = self._enemyMoveSpeed;
+        self._enemyMoveSpeed = enemy._enemyMoveSpeed * 0.5f;
+        //yield return new WaitForSeconds(5f);
+        //enemy._enemyMoveSpeed = _standardMoveSpeed;
+        //_slowed = false;
     }
 
-    private IEnumerator SlowDown(EnemyBase enemy)
+    private IEnumerator SlowDown(EnemyBase self, EnemyBase enemy)
     {
         _slowed = true;
         _standardMoveSpeed = enemy._enemyMoveSpeed;
-        enemy._enemyMoveSpeed *= 0.25f;
-        yield return new WaitForSeconds(1f);
+        self._enemyMoveSpeed = enemy._enemyMoveSpeed * 0.5f;
+        yield return new WaitForSeconds(5f);
         enemy._enemyMoveSpeed = _standardMoveSpeed;
         _slowed = false;
     }

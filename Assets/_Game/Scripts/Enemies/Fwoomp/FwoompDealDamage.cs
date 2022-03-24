@@ -38,7 +38,7 @@ public class FwoompDealDamage : MonoBehaviour
             {
                 //if there is a tower, the enemy attacks dealing damage to the tower
                 // does not apply a force with the attacks
-                if (_base.AppliesForce)
+                if (_base.AppliesForce && col.GetComponent<Rigidbody2D>() != null)
                 {
                     col.GetComponent<Rigidbody2D>().AddForce(new Vector2(-100, -100), ForceMode2D.Impulse);
                 }
@@ -48,10 +48,10 @@ public class FwoompDealDamage : MonoBehaviour
         }
     }
 
-    private void DealDamage(TowerBase tower)
+    private void DealDamage(TowerBase tower = null)
     {
-        tower.StopAllCoroutines();
-        tower.CancelInvoke();
+        tower?.StopAllCoroutines();
+        tower?.CancelInvoke();
 
         InvokeRepeating("Attack", _base.AttackRate, _base.AttackRate);
     }
@@ -62,6 +62,11 @@ public class FwoompDealDamage : MonoBehaviour
         {
             _attacking = true;
             DealDamage(collision?.GetComponent<TowerBase>());
+        }
+        else if (collision.GetComponent<WallToDefend>() != null)
+        {
+            _attacking = true;
+            DealDamage();
         }
     }
 
