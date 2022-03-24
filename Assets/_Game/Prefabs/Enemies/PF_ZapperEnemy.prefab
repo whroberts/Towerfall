@@ -212,7 +212,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 15
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackAppliesForce: 1
   _moneyOnDeath: 2
-  _enemyMoveSpeed: 3
+  _enemyMoveSpeed: 7
   _currentHealth: 0
   _totalHealth: 100
   _onHitDamage: 1

@@ -30,7 +30,7 @@ public class ZapperEnemy : EnemyBase
     //begins when this enemy reaches a tower within its attack radius
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<TowerBase>() != null && !_zDealDamage.Attacking)
+        if ((collision.GetComponent<WallToDefend>() != null || collision.GetComponent<TowerBase>() != null) && !_zDealDamage.Attacking)
         {
             Debug.Log("Detected: " + collision.gameObject.name);
 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Assertions.Comparers;
 
 public class EnemyWaveManager : MonoBehaviour
 {
@@ -11,12 +12,12 @@ public class EnemyWaveManager : MonoBehaviour
     [SerializeField] private GameObject _tweakerEnemy = null;
     [SerializeField] private GameObject _zapperEnemy = null;
 
-    [Header("Data")] 
-    [SerializeField] private float _timeBetweenEnemySpawns = 3f;
+    [Header("Data")]
     [SerializeField] private int _currentRound = 0;
+    [SerializeField] private int _winRound = 3;
     [SerializeField] private Vector3 _spawnPosition = new Vector3();
-    [SerializeField] public bool _roundActive = false;
-    [SerializeField] public bool _winTrigger = false;
+    [SerializeField] private bool _roundActive = false;
+    public bool RoundActive => _roundActive;
 
     [Space]
     public List<GameObject> _enemiesActive = new List<GameObject>();
@@ -24,46 +25,57 @@ public class EnemyWaveManager : MonoBehaviour
 
     [Header("Round One")]
     public List<GameObject> _enemiesToSpawnR1 = new List<GameObject>();
+    public float[] _timeBetweenEnemySpawns1;
 
     [Space]
 
     [Header("Round Two")]
     public List<GameObject> _enemiesToSpawnR2 = new List<GameObject>();
+    public float[] _timeBetweenEnemySpawns2;
 
     [Space]
 
     [Header("Round Three")]
     public List<GameObject> _enemiesToSpawnR3 = new List<GameObject>();
+    public float[] _timeBetweenEnemySpawns3;
 
     [Space]
 
     [Header("Round Four")]
     public List<GameObject> _enemiesToSpawnR4 = new List<GameObject>();
+    public float[] _timeBetweenEnemySpawns4;
 
     [Space]
 
     [Header("Round Five")]
     public List<GameObject> _enemiesToSpawnR5 = new List<GameObject>();
+    public float[] _timeBetweenEnemySpawns5;
 
-    private GameObject[] _enemies;
+    private bool _winTrigger = false;
+    public bool WinTrigger => _winTrigger;
+
     private List<GameObject> _currentEnemiesToSpawn = new List<GameObject>();
+    private float[] _timeBetweenSpawns;
 
-    private void Awake()
-    {
-        _enemies = new GameObject[3] {_fwoompEnemy, _tweakerEnemy, _zapperEnemy};
-    }
+    private int _enemiesDestroyed = 0;
+    private int _enemySpawnCount = 0;
 
-    private void Start()
+    private void Update()
     {
-        NextRound();
+        EnemiesAliveCheck();
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            NextRound();
+        }
     }
 
     private IEnumerator StartWave()
     {
-        _roundActive = true;
-        for (int i = 0; i <= _currentEnemiesToSpawn.Count; i++)
+        for (int i = 0; i < _enemySpawnCount; i++)
         {
-            yield return new WaitForSeconds(_timeBetweenEnemySpawns);
+            Debug.Log(i);
+            yield return new WaitForSeconds(_timeBetweenSpawns[i]);
             SpawnEnemy();
         }
     }
@@ -74,8 +86,35 @@ public class EnemyWaveManager : MonoBehaviour
         enemyToSpawn.transform.position = _spawnPosition;
         enemyToSpawn.transform.rotation = Quaternion.identity;
 
-        _enemiesToSpawnR1.RemoveAt(0);
+        _currentEnemiesToSpawn.RemoveAt(0);
         _enemiesActive.Add(enemyToSpawn);
+    }
+
+    private void EnemiesAliveCheck()
+    {
+        if (_currentEnemiesToSpawn.Count == 0 && _enemiesActive.Count > 0)
+        {
+            foreach (var enemy in _enemiesActive)
+            {
+                if (enemy != null)
+                {
+                    _enemiesDestroyed = 0;
+                    break;
+                }
+                else _enemiesDestroyed++;
+                Debug.Log(_enemiesDestroyed);
+            }
+
+            if (_enemiesDestroyed == _enemySpawnCount)
+            {
+                _enemiesActive.Clear();
+                _roundActive = false;
+                if (_currentRound == _winRound)
+                {
+                    _winTrigger = true;
+                }
+            }
+        }
     }
 
     public void NextRound()
@@ -88,20 +127,30 @@ public class EnemyWaveManager : MonoBehaviour
             {
                 case 1:
                     _currentEnemiesToSpawn = _enemiesToSpawnR1;
+                    _timeBetweenSpawns = _timeBetweenEnemySpawns1;
                     break;
                 case 2:
                     _currentEnemiesToSpawn = _enemiesToSpawnR2;
+                    _timeBetweenSpawns = _timeBetweenEnemySpawns2;
                     break;
                 case 3:
                     _currentEnemiesToSpawn = _enemiesToSpawnR3;
+                    _timeBetweenSpawns = _timeBetweenEnemySpawns3;
                     break;
                 case 4:
                     _currentEnemiesToSpawn = _enemiesToSpawnR4;
+                    _timeBetweenSpawns = _timeBetweenEnemySpawns4;
                     break;
                 case 5:
                     _currentEnemiesToSpawn = _enemiesToSpawnR5;
+                    _timeBetweenSpawns = _timeBetweenEnemySpawns5;
                     break;
             }
+
+            _enemySpawnCount = _currentEnemiesToSpawn.Count;
+            StartCoroutine(StartWave());
+            _roundActive = true;
         }
+        else Debug.LogError("There are still enemies left alive or that have not spawned yet");
     }
 }

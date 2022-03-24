@@ -32,6 +32,9 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     public float AttackRate => _attackRate;
     public bool AppliesForce => _attackAppliesForce;
 
+    private float _standardMoveSpeed = 0f;
+    private bool _slowed = false;
+
     void Awake()
     {
         _col = GetComponent<Collider2D>();
@@ -73,10 +76,49 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     //TERRIBLE SHOULD NOT BE PERMANENT
     public void FallenOver()
     {
-        if (this.transform.rotation.z <= -0.5f || this.transform.rotation.z >= 0.5f)
+        if (this.transform.rotation.z <= -0.7f || this.transform.rotation.z >= 0.7f)
         {
             FindObjectOfType<GameManager>().AddMoney(_moneyOnDeath);
             Destroy(gameObject);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        var tower = collision.gameObject.GetComponent<TowerBase>();
+
+        if (tower == null)
+        {
+            var enemy = collision.gameObject.GetComponent<EnemyBase>();
+            if (enemy != null)
+            {
+                if (!_slowed)
+                {
+                    //StartCoroutine(SlowDown(this, enemy));
+                    SlowDown1(this, enemy);
+                }
+            }
+        }
+
+    }
+    
+    private void SlowDown1(EnemyBase self, EnemyBase enemy)
+    {
+        _slowed = true;
+        _standardMoveSpeed = self._enemyMoveSpeed;
+        self._enemyMoveSpeed = enemy._enemyMoveSpeed * 0.5f;
+        //yield return new WaitForSeconds(5f);
+        //enemy._enemyMoveSpeed = _standardMoveSpeed;
+        //_slowed = false;
+    }
+
+    private IEnumerator SlowDown(EnemyBase self, EnemyBase enemy)
+    {
+        _slowed = true;
+        _standardMoveSpeed = enemy._enemyMoveSpeed;
+        self._enemyMoveSpeed = enemy._enemyMoveSpeed * 0.5f;
+        yield return new WaitForSeconds(5f);
+        enemy._enemyMoveSpeed = _standardMoveSpeed;
+        _slowed = false;
     }
 }

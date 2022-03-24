@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class FwoompAnimation : MonoBehaviour
 {
-    public AnimationClip JumpOnTower(GameObject tower)
+    public AnimationClip JumpOnTower(GameObject tower, int multiplier = 2)
     {
+        Sprite sprite;
         AnimationClip clip = new AnimationClip();
 
-        var sprite = tower.transform.GetChild(4).GetComponent<SpriteRenderer>()?.sprite;
-        float spriteHeight = sprite.bounds.extents.y * 2;
+        if (tower.GetComponent<WallToDefend>() != null)
+        {
+            sprite = tower.GetComponentInChildren<SpriteRenderer>()?.sprite;
+        }
+        else sprite = tower.transform.GetChild(4).GetComponent<SpriteRenderer>()?.sprite;
+
+        float spriteHeight = sprite.bounds.extents.y * multiplier;
 
         Keyframe[] keysX = new Keyframe[2];
         keysX[0] = new Keyframe(0f, gameObject.transform.position.x);

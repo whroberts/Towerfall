@@ -9,7 +9,9 @@ public class TweakerEnemy : EnemyBase
 
     private Animation _animation;
 
-    private bool _isMoving = false;
+    private float _storedMoveSpeed = 0f;
+
+    //private bool _isMoving = false;
 
     private void Start()
     {
@@ -17,11 +19,14 @@ public class TweakerEnemy : EnemyBase
         _tAnimation = GetComponent<TweakerAnimation>();
         _animation = GetComponent<Animation>();
 
-        IsMoving(true);
+        //IsMoving(true);
     }
 
+    /*
     private IEnumerator Hopping()
     {
+        yield return new WaitForSeconds(1f);
+
         var clip = _tAnimation.HopAnimation();
         _animation.AddClip(clip, clip.name);
         _animation.Play(clip.name);
@@ -33,17 +38,20 @@ public class TweakerEnemy : EnemyBase
             StartCoroutine(Hopping());
         }
     }
+    */
 
     public void IsMoving(bool move)
     {
         if (move)
         {
-            _isMoving = true;
-            StartCoroutine(Hopping());
+            //_isMoving = true;
+            //StartCoroutine(Hopping());
+            _enemyMoveSpeed = _storedMoveSpeed;
         }
         else
         {
-            _isMoving = false;
+            //_isMoving = false;
+            _enemyMoveSpeed = 0;
         }
     }
 
