@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class GameManager : MonoBehaviour
 
     private bool _isPaused = true;
     public bool IsPaused => _isPaused;
+
+    private int _score;
+    [SerializeField] private TextMeshProUGUI _scoreText;
+
     void Start()
     {
         _currentState = State.Intro;
@@ -24,6 +29,7 @@ public class GameManager : MonoBehaviour
         _towerHealthText.SetActive(false);
         _tutorialPanel.SetActive(false);
         _infoPanel.SetActive(false);
+        _score = 5;
 
         //Begin frozen
         Time.timeScale = 0;
@@ -36,6 +42,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        //Update inventory UI
+        _scoreText.text = "$" + _score;
         
         //Handling the game states
         switch (_currentState)
@@ -66,6 +74,16 @@ public class GameManager : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.R))
                     ReloadScene();
                 break;
+        }
+    }
+
+    public bool PayForTower(int price)
+    {
+        if (price > _score) return false;
+        else
+        {
+            _score -= price;
+            return true;
         }
     }
 
