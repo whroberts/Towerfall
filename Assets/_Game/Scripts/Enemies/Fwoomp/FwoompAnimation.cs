@@ -8,7 +8,7 @@ public class FwoompAnimation : MonoBehaviour
     {
         AnimationClip clip = new AnimationClip();
 
-        Sprite sprite = tower.GetComponentInChildren<SpriteRenderer>()?.sprite;
+        var sprite = tower.transform.GetChild(4).GetComponent<SpriteRenderer>()?.sprite;
         float spriteHeight = sprite.bounds.extents.y * 2;
 
         Keyframe[] keysX = new Keyframe[2];

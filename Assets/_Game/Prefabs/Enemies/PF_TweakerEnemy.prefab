@@ -117,7 +117,7 @@ MonoBehaviour:
   _enemyMoveSpeed: 0
   _currentHealth: 0
   _totalHealth: 300
-  _onHitDamage: 30
+  _onHitDamage: 20
   _attackRange: 1.5
   _attackRate: 3
 --- !u!114 &5011173113751989580
