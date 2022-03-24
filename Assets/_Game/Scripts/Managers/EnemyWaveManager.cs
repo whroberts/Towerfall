@@ -81,7 +81,6 @@ public class EnemyWaveManager : MonoBehaviour
     {
         for (int i = 0; i < _enemySpawnCount; i++)
         {
-            Debug.Log(i);
             yield return new WaitForSeconds(_timeBetweenSpawns[i]);
             SpawnEnemy();
         }
@@ -109,7 +108,6 @@ public class EnemyWaveManager : MonoBehaviour
                     break;
                 }
                 else _enemiesDestroyed++;
-                Debug.Log(_enemiesDestroyed);
             }
 
             if (_enemiesDestroyed == _enemySpawnCount)

@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         _towerHealthText.SetActive(false);
         _tutorialPanel.SetActive(false);
         _infoPanel.SetActive(false);
-        _score = 6;
+        _score = 20;
         _menuSoundSource = GetComponent<AudioSource>();
         _waveManager = GetComponent<EnemyWaveManager>();
 

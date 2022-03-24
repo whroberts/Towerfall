@@ -32,7 +32,6 @@ public class ZapperEnemy : EnemyBase
     {
         if ((collision.GetComponent<WallToDefend>() != null || collision.GetComponent<TowerBase>() != null) && !_zDealDamage.Attacking)
         {
-            Debug.Log("Detected: " + collision.gameObject.name);
 
             _enemyMoveSpeed *= _speedBoost;
         }
@@ -42,7 +41,6 @@ public class ZapperEnemy : EnemyBase
     {
         if (collision.gameObject.GetComponent<TowerBase>() != null)
         {
-            Debug.Log("Called On Collision");
             IsMoving(false);
         }
     }

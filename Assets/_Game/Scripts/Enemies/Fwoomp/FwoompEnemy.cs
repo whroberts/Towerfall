@@ -65,7 +65,6 @@ public class FwoompEnemy : EnemyBase
     {
         if (collision.GetComponent<TowerBase>() != null)
         {
-            Debug.Log("Detected: " + collision.gameObject.name);
             if (!_jumped)
             {
                 IsMoving(false);
@@ -78,7 +77,6 @@ public class FwoompEnemy : EnemyBase
         }
         else if (collision.GetComponent<WallToDefend>() != null)
         {
-            Debug.Log("Detected: " + collision.gameObject.name);
             if (!_jumped)
             {
                 IsMoving(false);
