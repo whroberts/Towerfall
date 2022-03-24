@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SniperTower : TowerBase
 {
+    [SerializeField] private AudioClip _shootAudio = null;
+    [Space]
     [SerializeField] private GameObject _projectileRef = null;
     [SerializeField] private GameObject _particleRef = null;
     private bool reloading = false;
@@ -35,7 +37,7 @@ public class SniperTower : TowerBase
             _rb.AddTorque(_towerRotRecoil);
             //Linear recoil from shooting
             _rb.AddForce(_towerLinRecoil);
-
+            AudioHelper.PlayClip2D(_shootAudio, 0.8f);
             _currentAmmo -= 1;
             UpdateAmmoCount();
         }

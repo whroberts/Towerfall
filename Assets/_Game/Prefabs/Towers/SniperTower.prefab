@@ -439,7 +439,11 @@ MonoBehaviour:
   _reloadTime: 3
   _currentHealth: 0
   _totalHealth: 25
-  _timeToStartFiring: 0.1
+  _timeToStartFiring: 1
+  _deathSound:
+  - {fileID: 8300000, guid: 82d5278e15783ee4d9ecbffbb4db3e1f, type: 3}
+  - {fileID: 8300000, guid: b485edb38b83e694282d3eafddd54363, type: 3}
+  _shootAudio: {fileID: 8300000, guid: 0c5ee9579f4740b4c9d46d24854005ec, type: 3}
   _projectileRef: {fileID: 8038344099624028802, guid: 36a36a9fa5798ce4a87ab4ed82fe1d1b,
     type: 3}
   _particleRef: {fileID: 169816216472229275, guid: ae7224ce8dacf744cb3969e9db6ad921,

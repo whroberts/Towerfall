@@ -15,6 +15,8 @@ public class FwoompAnimation : MonoBehaviour
         }
         else sprite = tower.transform.GetChild(4).GetComponent<SpriteRenderer>()?.sprite;
 
+        if (sprite == null) return null;
+
         float spriteHeight = sprite.bounds.extents.y * multiplier;
 
         Keyframe[] keysX = new Keyframe[2];

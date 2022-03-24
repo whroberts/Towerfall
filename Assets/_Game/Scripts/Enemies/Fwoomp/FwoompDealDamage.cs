@@ -79,7 +79,14 @@ public class FwoompDealDamage : MonoBehaviour
                 _attacking = false;
                 CancelInvoke();
                 _base.IsMoving(true);
+                StartCoroutine(WaitForTrigger());
             }
         }
+    }
+
+    private IEnumerator WaitForTrigger()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _base._jumpDetectionZone.gameObject.SetActive(true);
     }
 }

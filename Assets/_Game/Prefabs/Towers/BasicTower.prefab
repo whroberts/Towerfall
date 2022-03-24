@@ -521,6 +521,12 @@ MonoBehaviour:
   _currentHealth: 0
   _totalHealth: 25
   _timeToStartFiring: 0.25
+  _deathSound:
+  - {fileID: 8300000, guid: 82d5278e15783ee4d9ecbffbb4db3e1f, type: 3}
+  - {fileID: 8300000, guid: b485edb38b83e694282d3eafddd54363, type: 3}
+  _shootAudio:
+  - {fileID: 8300000, guid: 2caf6ec0bece5764abd237106652727e, type: 3}
+  - {fileID: 8300000, guid: 33f122fd6282026409ed2183d6e7d31b, type: 3}
   _projectileRef: {fileID: 8038344099624028802, guid: 218fbd072c75cb246ba7d2ce97f66843,
     type: 3}
   _particleRef: {fileID: 169816216472229275, guid: c2e1f75795eaaa143918eddf6205f633,

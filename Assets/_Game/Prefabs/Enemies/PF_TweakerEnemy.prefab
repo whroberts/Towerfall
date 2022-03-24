@@ -120,6 +120,11 @@ MonoBehaviour:
   _onHitDamage: 20
   _attackRange: 1.5
   _attackRate: 2
+  _attackSound: {fileID: 8300000, guid: df1b7a652e38bc04bae06eae2aa9f147, type: 3}
+  _deathSound: {fileID: 8300000, guid: d9ba67c1799f03b4fb1c34f37096ed61, type: 3}
+  _damagedSound:
+  - {fileID: 8300000, guid: 6f05a6f2d0095914fa8fb6aefd0c98a6, type: 3}
+  - {fileID: 8300000, guid: 9723a33ddc5dc7949910514f615fe111, type: 3}
 --- !u!114 &5011173113751989580
 MonoBehaviour:
   m_ObjectHideFlags: 0

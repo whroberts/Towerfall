@@ -39,9 +39,10 @@ public class TweakerDealDamage : MonoBehaviour
                 // does not apply a force with the attacks
                 if (_base.AppliesForce && col.GetComponent<Rigidbody2D>() != null)
                 {
-                    col.GetComponent<Rigidbody2D>().AddForce(new Vector2(-200, 100), ForceMode2D.Impulse);
+                    col.GetComponent<Rigidbody2D>().AddForce(new Vector2(-100, 400), ForceMode2D.Impulse);
                 }
 
+                AudioHelper.PlayClip2D(_base._attackSound, 1);
                 damagable.TakeDamage(_base.OnHitDamage);
             }
         }

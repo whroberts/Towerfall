@@ -38,6 +38,9 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
     // we can change this to have detection when enemies come
     [SerializeField] protected float _timeToStartFiring = 0.1f;
 
+    [Header("Audio")]
+    [SerializeField] protected AudioClip[] _deathSound = null;
+    [Space]
     Collider2D _col;
     protected Rigidbody2D _rb;
 
@@ -78,6 +81,7 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
         if (_currentHealth <= 0)
         {
             Debug.Log(this.name + "has taken fatal damage");
+            AudioHelper.PlayClip2D(_deathSound[Random.Range(0, 2)], 1);
             Destroy(gameObject);
         }
     }
