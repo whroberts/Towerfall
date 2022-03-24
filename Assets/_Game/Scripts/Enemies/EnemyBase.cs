@@ -73,7 +73,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     //TERRIBLE SHOULD NOT BE PERMANENT
     public void FallenOver()
     {
-        if (this.transform.rotation.z <= -0.5f || this.transform.rotation.z >= 0.5f)
+        if (this.transform.rotation.z <= -0.7f || this.transform.rotation.z >= 0.7f)
         {
             FindObjectOfType<GameManager>().AddMoney(_moneyOnDeath);
             Destroy(gameObject);

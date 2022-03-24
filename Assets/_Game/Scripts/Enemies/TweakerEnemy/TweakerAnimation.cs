@@ -15,12 +15,12 @@ public class TweakerAnimation : MonoBehaviour
 
         Keyframe[] keysX = new Keyframe[2];
         keysX[0] = new Keyframe(0f, xStartPos);
-        keysX[1] = new Keyframe(1f, xStartPos - 1f);
+        keysX[1] = new Keyframe(1f, xStartPos - 5f);
         AnimationCurve curveX = new AnimationCurve(keysX);
 
         Keyframe[] keysY = new Keyframe[3];
         keysY[0] = new Keyframe(0f, yStartPos);
-        keysY[1] = new Keyframe(0.5f, yStartPos + 0.5f);
+        keysY[1] = new Keyframe(0.5f, yStartPos + 2f);
         keysY[2] = new Keyframe(1f, yStartPos);
         AnimationCurve curveY = new AnimationCurve(keysY);
 
