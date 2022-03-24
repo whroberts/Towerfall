@@ -18,7 +18,7 @@ public class FwoompEnemy : EnemyBase
      * Medium Damage
      */
 
-    BoxCollider2D _jumpDetectionZone;
+    [SerializeField] public BoxCollider2D _jumpDetectionZone = null;
     Animation _anim;
 
     private FwoompAnimation _fwoompAnimation;
@@ -31,7 +31,6 @@ public class FwoompEnemy : EnemyBase
 
     private void Start()
     {
-        _jumpDetectionZone = GetComponentInChildren<BoxCollider2D>();
         _anim = GetComponent<Animation>();
         _fwoompAnimation = GetComponent<FwoompAnimation>();
     }
@@ -41,6 +40,7 @@ public class FwoompEnemy : EnemyBase
         var clip = _fwoompAnimation.JumpOnTower(tower, multiplier);
         _anim.AddClip(clip, clip.name);
         _anim.Play(clip.name);
+        AudioHelper.PlayClip2D(_attackSound, 0.3f);
         yield return new WaitForSeconds(clip.length);
         _jumpCompleted = true;
         _jumped = false;
@@ -73,6 +73,7 @@ public class FwoompEnemy : EnemyBase
 
                 _jumped = true;
                 _jumpCompleted = false;
+                _jumpDetectionZone.gameObject.SetActive(false);
             }
         }
         else if (collision.GetComponent<WallToDefend>() != null)
@@ -85,6 +86,7 @@ public class FwoompEnemy : EnemyBase
 
                 _jumped = true;
                 _jumpCompleted = false;
+                _jumpDetectionZone.gameObject.SetActive(false);
             }
         }
     }

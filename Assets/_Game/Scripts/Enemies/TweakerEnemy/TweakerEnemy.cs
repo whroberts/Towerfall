@@ -54,13 +54,4 @@ public class TweakerEnemy : EnemyBase
             _enemyMoveSpeed = 0;
         }
     }
-
-    //begins when this enemy reaches a tower within its attack radius
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.GetComponent<TowerBase>() != null && !_tDealDamage.Attacking)
-        {
-            Debug.Log("Detected: " + collision.gameObject.name);
-        }
-    }
 }

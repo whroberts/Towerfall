@@ -10,6 +10,8 @@ public class ZapperDealDamage : MonoBehaviour
     private bool _attacking = false;
     public bool Attacking => _attacking;
 
+    private bool _playingAudio = false;
+
     private void Start()
     {
         _attackTrigger = GetComponent<CircleCollider2D>();
@@ -47,9 +49,18 @@ public class ZapperDealDamage : MonoBehaviour
 
                 }
 
+                if (!_playingAudio) StartCoroutine(WaitForAudio());
                 damagable.TakeDamage(_base.OnHitDamage);
             }
         }
+    }
+
+    private IEnumerator WaitForAudio()
+    {
+        _playingAudio = true;
+        AudioHelper.PlayClip2D(_base._attackSound, 0.15f);
+        yield return new WaitForSeconds(Random.Range(0.5f,1f));
+        _playingAudio = false;
     }
 
     private void DealDamage(TowerBase tower = null)

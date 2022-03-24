@@ -22,6 +22,11 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     [SerializeField] protected float _attackRange = 1;
     [SerializeField] protected float _attackRate = 1;
 
+    [Header("Audio")]
+    [SerializeField] public AudioClip _attackSound = null;
+    [SerializeField] protected AudioClip _deathSound = null;
+    [SerializeField] protected AudioClip[] _damagedSound = null;
+
     Collider2D _col;
     protected Rigidbody2D _rb;
 
@@ -63,13 +68,17 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     //take damage function from interface IDamagable
     public void TakeDamage(int damage)
     {
-        _currentHealth -= damage;
-
         if (_currentHealth <= 0)
         {
             Debug.Log(this.name + "has taken fatal damage");
             FindObjectOfType<GameManager>().AddMoney(_moneyOnDeath);
+            AudioHelper.PlayClip2D(_deathSound, 1);
             Destroy(gameObject);
+        }
+        else
+        {
+            _currentHealth -= damage;
+            AudioHelper.PlayClip2D(_damagedSound[Random.Range(0, 2)], 0.1f);
         }
     }
 
