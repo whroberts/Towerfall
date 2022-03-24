@@ -32,6 +32,9 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     public float AttackRate => _attackRate;
     public bool AppliesForce => _attackAppliesForce;
 
+    private float _standardMoveSpeed = 0f;
+    private bool _slowed = false;
+
     void Awake()
     {
         _col = GetComponent<Collider2D>();
@@ -78,5 +81,27 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
             FindObjectOfType<GameManager>().AddMoney(_moneyOnDeath);
             Destroy(gameObject);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        var enemy = collision.gameObject.GetComponent<EnemyBase>();
+        if (enemy != null)
+        {
+            if (!_slowed)
+            {
+                StartCoroutine(SlowDown(enemy));
+            }
+        }
+    }
+
+    private IEnumerator SlowDown(EnemyBase enemy)
+    {
+        _slowed = true;
+        _standardMoveSpeed = enemy._enemyMoveSpeed;
+        enemy._enemyMoveSpeed *= 0.25f;
+        yield return new WaitForSeconds(1f);
+        enemy._enemyMoveSpeed = _standardMoveSpeed;
+        _slowed = false;
     }
 }

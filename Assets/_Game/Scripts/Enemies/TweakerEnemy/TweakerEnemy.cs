@@ -22,6 +22,8 @@ public class TweakerEnemy : EnemyBase
 
     private IEnumerator Hopping()
     {
+        yield return new WaitForSeconds(1f);
+
         var clip = _tAnimation.HopAnimation();
         _animation.AddClip(clip, clip.name);
         _animation.Play(clip.name);
