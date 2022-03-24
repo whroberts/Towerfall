@@ -7,15 +7,33 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] AudioClip _musicGame = null;
-    public static AudioManager instance = null;
+    public static AudioManager Instance = null;
 
     AudioSource _audioSource;
 
     private void Awake()
     {
-            if(_musicGame != null)
+        #region Singleton Pattern (Simple)
+
+        if (Instance == null)
         {
-            AudioManager.instance.PlaySong(_musicGame);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
+            _audioSource = GetComponent<AudioSource>();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        #endregion
+    }
+
+    private void Start()
+    {
+        if(_musicGame != null)
+        {
+            AudioManager.Instance.PlaySong(_musicGame);
         }
     }
 
