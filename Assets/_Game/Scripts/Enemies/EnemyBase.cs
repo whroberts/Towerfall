@@ -65,6 +65,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
         if (_currentHealth <= 0)
         {
             Debug.Log(this.name + "has taken fatal damage");
+            FindObjectOfType<GameManager>().AddMoney(_moneyOnDeath);
             Destroy(gameObject);
         }
     }
@@ -74,6 +75,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     {
         if (this.transform.rotation.z <= -0.5f || this.transform.rotation.z >= 0.5f)
         {
+            FindObjectOfType<GameManager>().AddMoney(_moneyOnDeath);
             Destroy(gameObject);
         }
     }

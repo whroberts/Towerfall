@@ -10,8 +10,11 @@ public class TowerManager : MonoBehaviour
     [SerializeField] private GameObject _sniperTower = null;
     [SerializeField] private GameObject _boxTower = null;
 
+    [SerializeField] private int _basicTowerCost, _sniperTowerCost, _boxTowerCost;
+
     private bool _holdingTower = false;
 
+    private GameManager _manager;
     private GameObject _newTower;
     private int _newTowerType;
 
@@ -19,6 +22,7 @@ public class TowerManager : MonoBehaviour
     void Start()
     {
         _newTowerType = 0;
+        _manager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -32,9 +36,19 @@ public class TowerManager : MonoBehaviour
                 Vector3 pos = Camera.main.ScreenToWorldPoint(touch.position);
                 pos.z = 0;
 
-                if (touch.phase == TouchPhase.Began)
+                if (touch.phase == TouchPhase.Began && _newTowerType != 0)
                 {
-                    _newTower = Instantiate(_basicTower, pos, Quaternion.identity);
+                    if (_newTowerType == 1 && _manager.PayForTower(_basicTowerCost))
+                        _newTower = Instantiate(_basicTower, pos, Quaternion.identity);
+
+                    else if (_newTowerType == 2 && _manager.PayForTower(_sniperTowerCost))
+                        _newTower = Instantiate(_sniperTower, pos, Quaternion.identity);
+
+                    else if (_newTowerType == 3 && _manager.PayForTower(_boxTowerCost))
+                        _newTower = Instantiate(_boxTower, pos, Quaternion.identity);
+
+                    else _newTower = null;
+
                     _newTower.GetComponent<Rigidbody2D>().freezeRotation = true;
                     _holdingTower = true;
 
@@ -58,9 +72,16 @@ public class TowerManager : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0) && !_holdingTower && _newTowerType != 0)
                 {
-                    if (_newTowerType == 1) _newTower = Instantiate(_basicTower, pos, Quaternion.identity);
-                    else if (_newTowerType == 2) _newTower = Instantiate(_sniperTower, pos, Quaternion.identity);
-                    else if (_newTowerType == 3) _newTower = Instantiate(_boxTower, pos, Quaternion.identity);
+                    if (_newTowerType == 1 && _manager.PayForTower(_basicTowerCost))
+                        _newTower = Instantiate(_basicTower, pos, Quaternion.identity);
+
+                    else if (_newTowerType == 2 && _manager.PayForTower(_sniperTowerCost))
+                        _newTower = Instantiate(_sniperTower, pos, Quaternion.identity);
+
+                    else if (_newTowerType == 3 && _manager.PayForTower(_boxTowerCost))
+                        _newTower = Instantiate(_boxTower, pos, Quaternion.identity);
+
+                    else _newTower = null;
 
                     _newTower.GetComponent<Rigidbody2D>().freezeRotation = true;
                     _holdingTower = true;
