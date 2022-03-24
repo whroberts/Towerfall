@@ -37,9 +37,6 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     public float AttackRate => _attackRate;
     public bool AppliesForce => _attackAppliesForce;
 
-    private float _standardMoveSpeed = 0f;
-    private bool _slowed = false;
-
     void Awake()
     {
         _col = GetComponent<Collider2D>();
@@ -70,7 +67,6 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     {
         if (_currentHealth <= 0)
         {
-            Debug.Log(this.name + "has taken fatal damage");
             FindObjectOfType<GameManager>().AddMoney(_moneyOnDeath);
             AudioHelper.PlayClip2D(_deathSound, 1);
             Destroy(gameObject);
@@ -91,45 +87,4 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
             Destroy(gameObject);
         }
     }
-
-    /*
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        var tower = collision.gameObject.GetComponent<TowerBase>();
-
-        if (tower == null)
-        {
-            var enemy = collision.gameObject.GetComponent<EnemyBase>();
-            if (enemy != null)
-            {
-                if (!_slowed)
-                {
-                    //StartCoroutine(SlowDown(this, enemy));
-                    SlowDown1(this, enemy);
-                }
-            }
-        }
-
-    }
-    
-    private void SlowDown1(EnemyBase self, EnemyBase enemy)
-    {
-        _slowed = true;
-        _standardMoveSpeed = self._enemyMoveSpeed;
-        self._enemyMoveSpeed = enemy._enemyMoveSpeed * 0.5f;
-        //yield return new WaitForSeconds(5f);
-        //enemy._enemyMoveSpeed = _standardMoveSpeed;
-        //_slowed = false;
-    }
-
-    private IEnumerator SlowDown(EnemyBase self, EnemyBase enemy)
-    {
-        _slowed = true;
-        _standardMoveSpeed = enemy._enemyMoveSpeed;
-        self._enemyMoveSpeed = enemy._enemyMoveSpeed * 0.5f;
-        yield return new WaitForSeconds(5f);
-        enemy._enemyMoveSpeed = _standardMoveSpeed;
-        _slowed = false;
-    }
-    */
 }
