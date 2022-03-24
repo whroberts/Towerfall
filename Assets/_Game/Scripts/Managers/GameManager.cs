@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     private AudioSource _menuSoundSource;
     [SerializeField] private AudioClip _menuSound, _menuHighSound, _menuLowSound;
+    
+    private EnemyWaveManager _waveManager;
 
     void Start()
     {
@@ -32,8 +35,9 @@ public class GameManager : MonoBehaviour
         _towerHealthText.SetActive(false);
         _tutorialPanel.SetActive(false);
         _infoPanel.SetActive(false);
-        _score = 5;
+        _score = 6;
         _menuSoundSource = GetComponent<AudioSource>();
+        _waveManager = GetComponent<EnemyWaveManager>();
 
         //Begin frozen
         Time.timeScale = 0;

@@ -83,22 +83,29 @@ public class TowerManager : MonoBehaviour
 
                     else _newTower = null;
 
-                    _newTower.GetComponent<Rigidbody2D>().freezeRotation = true;
-                    _holdingTower = true;
+                    if (_newTower != null)
+                    {
+                        _newTower.GetComponent<Rigidbody2D>().freezeRotation = true;
+                        _holdingTower = true;
+                    }
+
                 }
 
-                if (_holdingTower)
+                if (_newTower != null)
                 {
-                    _newTower.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
-                    _newTower.transform.position = pos;
-                }
+                    if (_holdingTower)
+                    {
+                        _newTower.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+                        _newTower.transform.position = pos;
+                    }
 
-                if (Input.GetMouseButtonUp(0))
-                {
-                    _holdingTower = false;
-                    _newTower.GetComponent<Rigidbody2D>().freezeRotation = false;
-                    _newTower.GetComponent<TowerBase>()?.SetGravity(_newTower.GetComponent<TowerBase>().TowerGravity);
-                }                
+                    if (Input.GetMouseButtonUp(0))
+                    {
+                        _holdingTower = false;
+                        _newTower.GetComponent<Rigidbody2D>().freezeRotation = false;
+                        _newTower.GetComponent<TowerBase>()?.SetGravity(_newTower.GetComponent<TowerBase>().TowerGravity);
+                    }
+                }
             }
         }
         

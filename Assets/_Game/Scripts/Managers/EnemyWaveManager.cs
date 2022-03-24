@@ -60,6 +60,13 @@ public class EnemyWaveManager : MonoBehaviour
     private int _enemiesDestroyed = 0;
     private int _enemySpawnCount = 0;
 
+    private GameManager _gameManager;
+
+    private void Awake()
+    {
+        _gameManager = GetComponent<GameManager>();
+    }
+
     private void Update()
     {
         EnemiesAliveCheck();
@@ -112,7 +119,9 @@ public class EnemyWaveManager : MonoBehaviour
                 if (_currentRound == _winRound)
                 {
                     _winTrigger = true;
+                    _gameManager.BeginWin();
                 }
+                else _gameManager.WaveShow();
             }
         }
     }
@@ -150,6 +159,7 @@ public class EnemyWaveManager : MonoBehaviour
             _enemySpawnCount = _currentEnemiesToSpawn.Count;
             StartCoroutine(StartWave());
             _roundActive = true;
+            _gameManager.WaveHide();
         }
         else Debug.LogError("There are still enemies left alive or that have not spawned yet");
     }

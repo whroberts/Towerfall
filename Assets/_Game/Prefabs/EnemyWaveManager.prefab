@@ -43,34 +43,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deaa1e2c6dfe9a34eb6cec7087ee641e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fwoompEnemy: {fileID: 7945541430965645829, guid: d3cf38db469e27949a8e67b1f5b72fe7,
+  _fwoompEnemy: {fileID: 7945541430965645829, guid: 65d1253dc422b2442b6e03dd615495d0,
     type: 3}
-  _tweakerEnemy: {fileID: 5011173113751989582, guid: 202cf7cbb2d965e4980c852938712cb0,
+  _tweakerEnemy: {fileID: 5011173113751989582, guid: 45a1d338355c3fb4d89a483c8047c296,
     type: 3}
-  _zapperEnemy: {fileID: 1627841021708360178, guid: 9d8a16bfec1bc6c46aec82fc1031bf89,
+  _zapperEnemy: {fileID: 1627841021708360178, guid: fa8284101ec7e5345aa1f62dee00d3e1,
     type: 3}
   _currentRound: 0
   _winRound: 3
-  _spawnPosition: {x: 52, y: 0, z: 0}
+  _spawnPosition: {x: 35, y: 0, z: 0}
   _roundActive: 0
   _enemiesActive: []
   _enemiesToSpawnR1:
-  - {fileID: 1627841021708360178, guid: 9d8a16bfec1bc6c46aec82fc1031bf89, type: 3}
-  - {fileID: 1627841021708360178, guid: 9d8a16bfec1bc6c46aec82fc1031bf89, type: 3}
-  - {fileID: 7945541430965645829, guid: d3cf38db469e27949a8e67b1f5b72fe7, type: 3}
-  - {fileID: 5011173113751989582, guid: 202cf7cbb2d965e4980c852938712cb0, type: 3}
+  - {fileID: 1627841021708360178, guid: fa8284101ec7e5345aa1f62dee00d3e1, type: 3}
+  - {fileID: 1627841021708360178, guid: fa8284101ec7e5345aa1f62dee00d3e1, type: 3}
+  - {fileID: 7945541430965645829, guid: 65d1253dc422b2442b6e03dd615495d0, type: 3}
+  - {fileID: 5011173113751989582, guid: 45a1d338355c3fb4d89a483c8047c296, type: 3}
   _timeBetweenEnemySpawns1:
+  - 0
   - 1
-  - 3
-  - 3
-  - 2
+  - 1
+  - 1
   _enemiesToSpawnR2:
-  - {fileID: 5011173113751989582, guid: 202cf7cbb2d965e4980c852938712cb0, type: 3}
-  - {fileID: 5011173113751989582, guid: 202cf7cbb2d965e4980c852938712cb0, type: 3}
-  - {fileID: 7945541430965645829, guid: d3cf38db469e27949a8e67b1f5b72fe7, type: 3}
-  - {fileID: 7945541430965645829, guid: d3cf38db469e27949a8e67b1f5b72fe7, type: 3}
-  - {fileID: 1627841021708360178, guid: 9d8a16bfec1bc6c46aec82fc1031bf89, type: 3}
-  - {fileID: 1627841021708360178, guid: 9d8a16bfec1bc6c46aec82fc1031bf89, type: 3}
+  - {fileID: 5011173113751989582, guid: 45a1d338355c3fb4d89a483c8047c296, type: 3}
+  - {fileID: 5011173113751989582, guid: 45a1d338355c3fb4d89a483c8047c296, type: 3}
+  - {fileID: 7945541430965645829, guid: 65d1253dc422b2442b6e03dd615495d0, type: 3}
+  - {fileID: 7945541430965645829, guid: 65d1253dc422b2442b6e03dd615495d0, type: 3}
+  - {fileID: 1627841021708360178, guid: fa8284101ec7e5345aa1f62dee00d3e1, type: 3}
+  - {fileID: 1627841021708360178, guid: fa8284101ec7e5345aa1f62dee00d3e1, type: 3}
   _timeBetweenEnemySpawns2:
   - 1
   - 4
@@ -79,14 +79,14 @@ MonoBehaviour:
   - 3
   - 3
   _enemiesToSpawnR3:
-  - {fileID: 1627841021708360178, guid: 9d8a16bfec1bc6c46aec82fc1031bf89, type: 3}
-  - {fileID: 1627841021708360178, guid: 9d8a16bfec1bc6c46aec82fc1031bf89, type: 3}
-  - {fileID: 1627841021708360178, guid: 9d8a16bfec1bc6c46aec82fc1031bf89, type: 3}
-  - {fileID: 1627841021708360178, guid: 9d8a16bfec1bc6c46aec82fc1031bf89, type: 3}
-  - {fileID: 7945541430965645829, guid: d3cf38db469e27949a8e67b1f5b72fe7, type: 3}
-  - {fileID: 7945541430965645829, guid: d3cf38db469e27949a8e67b1f5b72fe7, type: 3}
-  - {fileID: 5011173113751989582, guid: 202cf7cbb2d965e4980c852938712cb0, type: 3}
-  - {fileID: 5011173113751989582, guid: 202cf7cbb2d965e4980c852938712cb0, type: 3}
+  - {fileID: 1627841021708360178, guid: fa8284101ec7e5345aa1f62dee00d3e1, type: 3}
+  - {fileID: 1627841021708360178, guid: fa8284101ec7e5345aa1f62dee00d3e1, type: 3}
+  - {fileID: 1627841021708360178, guid: fa8284101ec7e5345aa1f62dee00d3e1, type: 3}
+  - {fileID: 1627841021708360178, guid: fa8284101ec7e5345aa1f62dee00d3e1, type: 3}
+  - {fileID: 7945541430965645829, guid: 65d1253dc422b2442b6e03dd615495d0, type: 3}
+  - {fileID: 7945541430965645829, guid: 65d1253dc422b2442b6e03dd615495d0, type: 3}
+  - {fileID: 5011173113751989582, guid: 45a1d338355c3fb4d89a483c8047c296, type: 3}
+  - {fileID: 5011173113751989582, guid: 45a1d338355c3fb4d89a483c8047c296, type: 3}
   _timeBetweenEnemySpawns3:
   - 1
   - 2

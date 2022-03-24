@@ -165,4 +165,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectileSpeed: 1000
-  _projectileDamage: 50
+  _projectileDamage: 33
