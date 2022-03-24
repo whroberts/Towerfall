@@ -19,13 +19,14 @@ public class FwoompEnemy : EnemyBase
      */
 
     [SerializeField] public BoxCollider2D _jumpDetectionZone = null;
+    [SerializeField] public CircleCollider2D _attackTrigger = null;
+    [SerializeField] public AudioClip _boom = null;
     Animation _anim;
 
     private FwoompAnimation _fwoompAnimation;
 
     float _storedMoveSpeed = 0f;
-    private bool _jumped = false;
-    public bool Jumped => _jumped;
+    public bool _jumped = false;
     private bool _jumpCompleted = false;
     public bool JumpCompleted => _jumpCompleted;
 
@@ -46,6 +47,15 @@ public class FwoompEnemy : EnemyBase
         _jumped = false;
     }
 
+    private IEnumerator LerpState(GameObject tower, int multiplier = 2)
+    {
+        _attackTrigger.enabled = false;
+        _fwoompAnimation.SetLerp(tower, Time.time, multiplier);
+        AudioHelper.PlayClip2D(_attackSound, 0.3f);
+        yield return new WaitForSeconds(1.25f);
+        _jumpCompleted = true;
+    }
+
     public void IsMoving(bool move)
     {
         if (move)
@@ -60,6 +70,8 @@ public class FwoompEnemy : EnemyBase
         }
     }
 
+    
+
     //begins when this enemy reaches a tower within its attack radius
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -68,7 +80,7 @@ public class FwoompEnemy : EnemyBase
             if (!_jumped)
             {
                 IsMoving(false);
-                StartCoroutine(JumpState(collision.gameObject));
+                StartCoroutine(LerpState(collision.gameObject));
 
                 _jumped = true;
                 _jumpCompleted = false;
@@ -80,7 +92,7 @@ public class FwoompEnemy : EnemyBase
             if (!_jumped)
             {
                 IsMoving(false);
-                StartCoroutine(JumpState(collision.gameObject, 4));
+                StartCoroutine(LerpState(collision.gameObject, 4));
 
                 _jumped = true;
                 _jumpCompleted = false;

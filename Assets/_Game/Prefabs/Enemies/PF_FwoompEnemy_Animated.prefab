@@ -340,7 +340,6 @@ GameObject:
   - component: {fileID: 7945541430965645826}
   - component: {fileID: 7945541430965645825}
   - component: {fileID: 7945541430965645824}
-  - component: {fileID: 3258995525168877194}
   - component: {fileID: 7945541430965645830}
   - component: {fileID: 7472185992140241800}
   m_Layer: 10
@@ -362,8 +361,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6219192266305822808}
-  - {fileID: 7945541431281091729}
   - {fileID: 7945541432644657903}
+  - {fileID: 7945541431281091729}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -414,21 +413,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!111 &3258995525168877194
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7945541430965645829}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &7945541430965645830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,6 +439,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6f05a6f2d0095914fa8fb6aefd0c98a6, type: 3}
   - {fileID: 8300000, guid: 9723a33ddc5dc7949910514f615fe111, type: 3}
   _jumpDetectionZone: {fileID: 7945541432644657896}
+  _attackTrigger: {fileID: 7945541431281091728}
+  _boom: {fileID: 8300000, guid: d63c51e5d1058704a9bf7598017824e2, type: 3}
+  _jumped: 0
 --- !u!114 &7472185992140241800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,7 +484,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7945541430965645826}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &7945541431281091728
 CircleCollider2D:
@@ -637,7 +624,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7945541430965645826}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &7945541432644657896
 BoxCollider2D:
@@ -652,7 +639,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -9, y: 3}
+  m_Offset: {x: -12, y: 3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}

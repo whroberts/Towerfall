@@ -29,13 +29,11 @@ public class WallToDefend : MonoBehaviour, IDamagable
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("Took Damage");
         _currentHealth -= damage;
         _healthText.text = _currentHealth + "/" + _totalHealth;
 
         if (_currentHealth <= 0)
         {
-            Debug.Log(this.name + "has taken fatal damage");
             Defeated();
         }
     }

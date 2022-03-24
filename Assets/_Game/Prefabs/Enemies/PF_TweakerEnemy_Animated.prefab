@@ -437,9 +437,7 @@ GameObject:
   - component: {fileID: 5011173113751989581}
   - component: {fileID: 651229406854278595}
   - component: {fileID: 3403265683565598501}
-  - component: {fileID: 5011173113751989570}
   - component: {fileID: 5011173113751989583}
-  - component: {fileID: 5011173113751989580}
   m_Layer: 10
   m_Name: PF_TweakerEnemy_Animated
   m_TagString: Untagged
@@ -510,21 +508,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!111 &5011173113751989570
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5011173113751989582}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &5011173113751989583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,24 +527,12 @@ MonoBehaviour:
   _totalHealth: 300
   _onHitDamage: 20
   _attackRange: 1.5
-  _attackRate: 2
+  _attackRate: 1
   _attackSound: {fileID: 8300000, guid: df1b7a652e38bc04bae06eae2aa9f147, type: 3}
   _deathSound: {fileID: 8300000, guid: d9ba67c1799f03b4fb1c34f37096ed61, type: 3}
   _damagedSound:
   - {fileID: 8300000, guid: 6f05a6f2d0095914fa8fb6aefd0c98a6, type: 3}
   - {fileID: 8300000, guid: 9723a33ddc5dc7949910514f615fe111, type: 3}
---- !u!114 &5011173113751989580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5011173113751989582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27f138424213a6241a1e25bafecd1107, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5801516725413562146
 GameObject:
   m_ObjectHideFlags: 0

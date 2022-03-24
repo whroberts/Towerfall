@@ -50,6 +50,7 @@ public class TowerManager : MonoBehaviour
                     else _newTower = null;
 
                     _newTower.GetComponent<Rigidbody2D>().freezeRotation = true;
+                    _newTower.GetComponent<Collider2D>().enabled = false;
                     _holdingTower = true;
 
                 }
@@ -63,6 +64,8 @@ public class TowerManager : MonoBehaviour
                     _holdingTower = false;
                     _newTower.GetComponent<Rigidbody2D>().freezeRotation = false;
                     _newTower.GetComponent<TowerBase>()?.SetGravity(_newTower.GetComponent<TowerBase>().TowerGravity);
+                    _newTower.GetComponent<Collider2D>().enabled = true;
+                    _newTower = null;
                 }
             }
             else

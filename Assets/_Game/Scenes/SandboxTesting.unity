@@ -7454,7 +7454,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1882577969
 GameObject:
@@ -8541,7 +8541,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2093742862
 MonoBehaviour:
@@ -8631,6 +8631,8 @@ MonoBehaviour:
   _menuSound: {fileID: 8300000, guid: f7e9ec3af5f1ca44aa4836632657ae6b, type: 3}
   _menuHighSound: {fileID: 8300000, guid: 5ed755d199a34784e9d317ec3fd7371a, type: 3}
   _menuLowSound: {fileID: 8300000, guid: 263d7e06dea43a44fa61a5e9ec19ca29, type: 3}
+  _winSound: {fileID: 8300000, guid: 2afd792920312ab4bb90e3892e10405e, type: 3}
+  _loseSound: {fileID: 8300000, guid: fb0d9529544032e4f892265bf3fa79ed, type: 3}
 --- !u!82 &2093742864
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9105,7 +9107,7 @@ PrefabInstance:
     - target: {fileID: 1194641031639358152, guid: 1fabb71da77b5cc4b98b01be0de1188e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 16
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1194641031639358152, guid: 1fabb71da77b5cc4b98b01be0de1188e,
         type: 3}
@@ -9135,7 +9137,7 @@ PrefabInstance:
     - target: {fileID: 1194641031639358152, guid: 1fabb71da77b5cc4b98b01be0de1188e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1194641031639358152, guid: 1fabb71da77b5cc4b98b01be0de1188e,
         type: 3}
@@ -9151,11 +9153,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1194641031639358155, guid: 1fabb71da77b5cc4b98b01be0de1188e,
-        type: 3}
-      propertyPath: m_Volume
-      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1194641031639358157, guid: 1fabb71da77b5cc4b98b01be0de1188e,
         type: 3}

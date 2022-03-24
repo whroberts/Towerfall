@@ -58,7 +58,7 @@ public class FwoompDealDamage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<TowerBase>() != null && _base.Jumped)
+        if (collision.GetComponent<TowerBase>() != null && _base.JumpCompleted)
         {
             _attacking = true;
             DealDamage(collision?.GetComponent<TowerBase>());
@@ -76,10 +76,12 @@ public class FwoompDealDamage : MonoBehaviour
         {
             if (_attacking)
             {
-                _attacking = false;
-                CancelInvoke();
-                _base.IsMoving(true);
-                StartCoroutine(WaitForTrigger());
+                AudioHelper.PlayClip2D(_base._boom, 0.2f);
+                Destroy(this.gameObject,0.5f);
+                //_attacking = false;
+                //CancelInvoke();
+                //_base.IsMoving(true);
+                //StartCoroutine(WaitForTrigger());
             }
         }
     }
@@ -88,5 +90,6 @@ public class FwoompDealDamage : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         _base._jumpDetectionZone.gameObject.SetActive(true);
+        _base._jumped = false;
     }
 }

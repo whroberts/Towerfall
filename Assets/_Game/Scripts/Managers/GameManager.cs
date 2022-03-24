@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _scoreText;
 
     private AudioSource _menuSoundSource;
-    [SerializeField] private AudioClip _menuSound, _menuHighSound, _menuLowSound;
+    [SerializeField] private AudioClip _menuSound, _menuHighSound, _menuLowSound, _winSound, _loseSound;
     
     private EnemyWaveManager _waveManager;
 
@@ -206,6 +206,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         _isPaused = true;
         _gamePanel.SetActive(false);
+        PlayLoseSound();
         _currentState = State.End;
     }
 
@@ -222,6 +223,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         _isPaused = true;
         _gamePanel.SetActive(false);
+        PlayWinSound();
         _currentState = State.End;
     }
 
@@ -245,6 +247,18 @@ public class GameManager : MonoBehaviour
     public void PlayLowSound()
     {
         _menuSoundSource.clip = _menuLowSound;
+        _menuSoundSource.Play();
+    }
+
+    public void PlayWinSound()
+    {
+        _menuSoundSource.clip = _winSound;
+        _menuSoundSource.Play();
+    }
+
+    public void PlayLoseSound()
+    {
+        _menuSoundSource.clip = _loseSound;
         _menuSoundSource.Play();
     }
 }
