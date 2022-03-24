@@ -2475,7 +2475,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -5
+  m_SortingOrder: -4
   m_Sprite: {fileID: 21300000, guid: e5221f5661c3b914ab9f724a08fb5672, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -8555,12 +8555,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deaa1e2c6dfe9a34eb6cec7087ee641e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fwoompEnemy: {fileID: 7945541430965645829, guid: 65d1253dc422b2442b6e03dd615495d0,
-    type: 3}
-  _tweakerEnemy: {fileID: 5011173113751989582, guid: 45a1d338355c3fb4d89a483c8047c296,
-    type: 3}
-  _zapperEnemy: {fileID: 1627841021708360178, guid: fa8284101ec7e5345aa1f62dee00d3e1,
-    type: 3}
   _currentRound: 0
   _winRound: 3
   _spawnPosition: {x: 52, y: 0, z: 0}
@@ -9175,7 +9169,7 @@ PrefabInstance:
     - target: {fileID: 1907680990665609625, guid: ed3cd847e0b6f864da11ce2bf462ca81,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -40
+      value: -35.1
       objectReference: {fileID: 0}
     - target: {fileID: 1907680990665609625, guid: ed3cd847e0b6f864da11ce2bf462ca81,
         type: 3}
