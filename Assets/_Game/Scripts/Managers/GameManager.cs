@@ -87,13 +87,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void AddMoney(int added)
+    {
+        _score += added;
+    }
+
     public void BeginPlay()
     {
         Time.timeScale = 1;
         _gamePanel.SetActive(true);
 
         _mainMenuPanel.transform.DOScale(0f, 0.3f);
-        _gamePanel.transform.DOMoveY(_gamePanel.transform.position.y + 500, 1f, false).From().OnComplete(Play);
+        _gamePanel.transform.DOMoveY(_gamePanel.transform.position.y + 800, 1f, false).From().OnComplete(Play);
         
     }
 

@@ -115,14 +115,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackAppliesForce: 0
-  _moneyOnDeath: 100
+  _moneyOnDeath: 1
   _enemyMoveSpeed: 10
   _currentHealth: 0
   _totalHealth: 100
   _onHitDamage: 20
   _attackRange: 1
   _attackRate: 1
-  _enemyCheck: {fileID: 7042014384154351150}
 --- !u!1 &6409131186355883476
 GameObject:
   m_ObjectHideFlags: 0

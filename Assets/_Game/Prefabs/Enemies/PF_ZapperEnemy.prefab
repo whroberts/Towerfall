@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackAppliesForce: 1
-  _moneyOnDeath: 100
+  _moneyOnDeath: 2
   _enemyMoveSpeed: 3
   _currentHealth: 0
   _totalHealth: 100
