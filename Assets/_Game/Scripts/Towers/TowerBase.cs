@@ -24,12 +24,14 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
     [SerializeField] protected Vector2 _towerLinRecoil = new Vector2 (0,0);
 
     // Automatically reloads
+    private Transform _ammoBarRef;
     [SerializeField] protected float _currentAmmo = 0;
     [SerializeField] protected float _totalAmmo = 10;
 
     // In seconds
     [SerializeField] protected float _reloadTime = 1;
 
+    private Transform _healthBarRef;
     [SerializeField] protected int _currentHealth = 0;
     [SerializeField] protected int _totalHealth = 25;
 
@@ -47,13 +49,15 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
     {
         _col = GetComponent<Collider2D>();
         _rb = GetComponent<Rigidbody2D>();
+        _healthBarRef = transform.GetChild(1).transform;
+        _ammoBarRef = transform.GetChild(2).transform;
         _shootPosition = transform.GetChild(0);
 
         _currentHealth = _totalHealth;
         _currentAmmo = _totalAmmo;
 
         //must be zero for touch placement
-        _rb.gravityScale = 0;
+        //_rb.gravityScale = 0;
     }
 
     public abstract void PrintOnStart();
@@ -68,6 +72,8 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
     public void TakeDamage(int damage)
     {
         _currentHealth -= damage;
+
+        _healthBarRef.localScale = new Vector3(_healthBarRef.localScale.x, ((float)_currentHealth / (float)_totalHealth) * 3.0f, _healthBarRef.localScale.z);
 
         if (_currentHealth <= 0)
         {
