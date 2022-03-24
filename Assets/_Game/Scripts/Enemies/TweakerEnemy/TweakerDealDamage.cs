@@ -39,7 +39,7 @@ public class TweakerDealDamage : MonoBehaviour
                 // does not apply a force with the attacks
                 if (_base.AppliesForce && col.GetComponent<Rigidbody2D>() != null)
                 {
-                    col.GetComponent<Rigidbody2D>().AddForce(new Vector2(-100, 400), ForceMode2D.Impulse);
+                    col.GetComponent<Rigidbody2D>().AddForce(new Vector2(-100, 100), ForceMode2D.Impulse);
                 }
 
                 AudioHelper.PlayClip2D(_base._attackSound, 1);
@@ -58,8 +58,6 @@ public class TweakerDealDamage : MonoBehaviour
         if (collision.GetComponent<TowerBase>() != null)
         {
             _attacking = true;
-            _base.IsMoving(false);
-            Debug.Log("Here");
             DealDamage(collision?.GetComponent<TowerBase>());
         }
         else if (collision.GetComponent<WallToDefend>() != null)
@@ -73,9 +71,9 @@ public class TweakerDealDamage : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<TowerBase>() != null && _attacking)
         {
+            _base.IsMoving(true);
             _attacking = false;
             CancelInvoke();
-            _base.IsMoving(true);
         }
     }
 }
