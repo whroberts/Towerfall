@@ -9,7 +9,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public enum State {Intro, Paused, Playing, End};
-    public GameObject _mainMenuPanel, _gamePanel, _pausePanel, _losePanel, _towerHealthText, _tutorialPanel, _infoPanel, _waveButton;
+    public GameObject _mainMenuPanel, _gamePanel, _pausePanel, _losePanel, _towerHealthText, _tutorialPanel, _infoPanel, _winPanel, _waveButton;
     private State _currentState = State.Intro;
     public State CurrentState => _currentState;
 
@@ -177,6 +177,17 @@ public class GameManager : MonoBehaviour
         PlayLowSound();
     }
 
+    public void WaveHide()
+    {
+        PlayLowSound();
+        _waveButton.transform.DOMoveY(_waveButton.transform.position.y - 200, 1f, false);
+    }
+
+    public void WaveShow()
+    {
+        _waveButton.transform.DOMoveY(_waveButton.transform.position.y + 200, 1f, false);
+    }
+
     public void BeginEnd()
     {
         _gamePanel.transform.DOMoveY(_gamePanel.transform.position.y + 500, 0.3f, false);
@@ -186,6 +197,22 @@ public class GameManager : MonoBehaviour
     }
 
     private void EndPlay()
+    {
+        Time.timeScale = 0;
+        _isPaused = true;
+        _gamePanel.SetActive(false);
+        _currentState = State.End;
+    }
+
+    public void BeginWin()
+    {
+        _gamePanel.transform.DOMoveY(_gamePanel.transform.position.y + 500, 0.3f, false);
+        _winPanel.transform.localScale = Vector3.zero;
+        _winPanel.SetActive(true);
+        _winPanel.transform.DOScale(1f, 0.3f).OnComplete(Win);
+    }
+
+    private void Win()
     {
         Time.timeScale = 0;
         _isPaused = true;
