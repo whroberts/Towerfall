@@ -92,6 +92,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
         }
     }
 
+    /*
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var tower = collision.gameObject.GetComponent<TowerBase>();
@@ -130,4 +131,5 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
         enemy._enemyMoveSpeed = _standardMoveSpeed;
         _slowed = false;
     }
+    */
 }
