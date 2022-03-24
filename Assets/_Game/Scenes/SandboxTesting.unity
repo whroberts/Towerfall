@@ -2475,7 +2475,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -4
+  m_SortingOrder: -5
   m_Sprite: {fileID: 21300000, guid: e5221f5661c3b914ab9f724a08fb5672, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -6085,7 +6085,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -5
+  m_SortingOrder: -6
   m_Sprite: {fileID: 21300000, guid: 3aa94fcf2ff665945ba6518c93ba0b14, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -9135,7 +9135,7 @@ PrefabInstance:
     - target: {fileID: 1194641031639358152, guid: 1fabb71da77b5cc4b98b01be0de1188e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1194641031639358152, guid: 1fabb71da77b5cc4b98b01be0de1188e,
         type: 3}
@@ -9151,6 +9151,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1194641031639358155, guid: 1fabb71da77b5cc4b98b01be0de1188e,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1194641031639358157, guid: 1fabb71da77b5cc4b98b01be0de1188e,
         type: 3}
