@@ -76,7 +76,6 @@ public class ZapperDealDamage : MonoBehaviour
         if (collision.GetComponent<TowerBase>() != null)
         {
             _attacking = true;
-            _base.IsMoving(false);
             DealDamage(collision?.GetComponent<TowerBase>());
         }
         else if (collision.GetComponent<WallToDefend>() != null)
@@ -90,9 +89,9 @@ public class ZapperDealDamage : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<TowerBase>() != null && _attacking)
         {
+            _base.IsMoving(true);
             _attacking = false;
             CancelInvoke();
-            _base.IsMoving(true);
         }
     }
 }

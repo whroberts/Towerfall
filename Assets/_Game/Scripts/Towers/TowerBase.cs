@@ -86,7 +86,6 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
 
         if (_currentHealth <= 0)
         {
-            Debug.Log(this.name + "has taken fatal damage");
             AudioHelper.PlayClip2D(_deathSound[Random.Range(0, 2)], 1);
             Destroy(gameObject);
         }
@@ -113,7 +112,6 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
             }
 
             // testing
-            Debug.Log("Enemy entered zone: " + _enemiesInRange);
         }
     }
 
@@ -134,7 +132,6 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
             }
 
             //testing 
-            Debug.Log("Enemy left zone: " + _enemiesInRange);
         }
     }
 

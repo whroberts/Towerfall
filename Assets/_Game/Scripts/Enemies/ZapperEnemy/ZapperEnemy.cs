@@ -7,7 +7,7 @@ public class ZapperEnemy : EnemyBase
     private ZapperDealDamage _zDealDamage;
 
     private float _storedMoveSpeed = 0f;
-    private float _speedBoost = 2f;
+    private float _speedBoost = 1.5f;
 
     private void Start()
     {
@@ -35,6 +35,15 @@ public class ZapperEnemy : EnemyBase
             Debug.Log("Detected: " + collision.gameObject.name);
 
             _enemyMoveSpeed *= _speedBoost;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<TowerBase>() != null)
+        {
+            Debug.Log("Called On Collision");
+            IsMoving(false);
         }
     }
 }
