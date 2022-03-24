@@ -9,7 +9,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public enum State {Intro, Paused, Playing, End};
-    public GameObject _mainMenuPanel, _gamePanel, _pausePanel, _losePanel, _towerHealthText, _tutorialPanel, _infoPanel;
+    public GameObject _mainMenuPanel, _gamePanel, _pausePanel, _losePanel, _towerHealthText, _tutorialPanel, _infoPanel, _waveButton;
     private State _currentState = State.Intro;
     public State CurrentState => _currentState;
 
@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
 
     private int _score;
     [SerializeField] private TextMeshProUGUI _scoreText;
+
+    private AudioSource _menuSoundSource;
+    [SerializeField] private AudioClip _menuSound, _menuHighSound, _menuLowSound;
 
     void Start()
     {
@@ -30,6 +33,7 @@ public class GameManager : MonoBehaviour
         _tutorialPanel.SetActive(false);
         _infoPanel.SetActive(false);
         _score = 5;
+        _menuSoundSource = GetComponent<AudioSource>();
 
         //Begin frozen
         Time.timeScale = 0;
@@ -99,7 +103,8 @@ public class GameManager : MonoBehaviour
 
         _mainMenuPanel.transform.DOScale(0f, 0.3f);
         _gamePanel.transform.DOMoveY(_gamePanel.transform.position.y + 800, 1f, false).From().OnComplete(Play);
-        
+
+        PlayRegularSound();
     }
 
     private void Play()
@@ -126,6 +131,8 @@ public class GameManager : MonoBehaviour
         _gamePanel.transform.DOMoveY(_gamePanel.transform.position.y + 500, 0.3f, false);
         _pausePanel.SetActive(true);
         _pausePanel.transform.DOScale(0f, 0.3f).From().OnComplete(Pause);
+
+        PlayLowSound();
     }
 
     private void Pause()
@@ -142,6 +149,8 @@ public class GameManager : MonoBehaviour
         _gamePanel.SetActive(true);
         _gamePanel.transform.DOMoveY(_gamePanel.transform.position.y - 500, 0.3f, false);
         _pausePanel.transform.DOScale(0f, 0.3f).OnComplete(UnPause);
+
+        PlayLowSound();
     }
 
     private void UnPause()
@@ -156,12 +165,16 @@ public class GameManager : MonoBehaviour
     {
         _pausePanel.SetActive(false);
         _infoPanel.SetActive(true);
+
+        PlayLowSound();
     }
 
     public void InfoHide()
     {
         _infoPanel.SetActive(false);
         _pausePanel.SetActive(true);
+
+        PlayLowSound();
     }
 
     public void BeginEnd()
@@ -183,5 +196,23 @@ public class GameManager : MonoBehaviour
     public void ReloadScene()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void PlayRegularSound()
+    {
+        _menuSoundSource.clip = _menuSound;
+        _menuSoundSource.Play();
+    }
+
+    public void PlayHighSound()
+    {
+        _menuSoundSource.clip = _menuHighSound;
+        _menuSoundSource.Play();
+    }
+
+    public void PlayLowSound()
+    {
+        _menuSoundSource.clip = _menuLowSound;
+        _menuSoundSource.Play();
     }
 }
