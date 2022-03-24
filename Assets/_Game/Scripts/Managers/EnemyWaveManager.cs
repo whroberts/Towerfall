@@ -7,11 +7,6 @@ using UnityEngine.Assertions.Comparers;
 
 public class EnemyWaveManager : MonoBehaviour
 {
-    [Header("Enemies")] 
-    [SerializeField] private GameObject _fwoompEnemy = null;
-    [SerializeField] private GameObject _tweakerEnemy = null;
-    [SerializeField] private GameObject _zapperEnemy = null;
-
     [Header("Data")]
     [SerializeField] private int _currentRound = 0;
     [SerializeField] private int _winRound = 3;

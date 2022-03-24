@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         _gamePanel.SetActive(true);
-
+        _waveButton.SetActive(false);
         _mainMenuPanel.transform.DOScale(0f, 0.3f);
         _gamePanel.transform.DOMoveY(_gamePanel.transform.position.y + 800, 1f, false).From().OnComplete(Play);
 
@@ -128,6 +128,7 @@ public class GameManager : MonoBehaviour
     private void TutorialFade()
     {
         _tutorialPanel.transform.DOScale(0f, 0.5f);
+        _waveButton.SetActive(true);
     }
 
     public void BeginPause()
