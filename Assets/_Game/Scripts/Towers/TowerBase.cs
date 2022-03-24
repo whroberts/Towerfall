@@ -10,6 +10,8 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
     [Header("For Testing Purposes")]
     [SerializeField] protected bool _canShoot = true;
 
+    [SerializeField] protected bool _isBox = false;
+
     [Header("Tower Physics")] 
     [SerializeField] protected int _towerGravity = 1;
     public int TowerGravity => _towerGravity;
@@ -53,10 +55,12 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
         _col = GetComponent<Collider2D>();
         _rb = GetComponent<Rigidbody2D>();
 
-
-        _healthBarRef = transform.GetChild(1).transform;
-        _ammoBarRef = transform.GetChild(2).transform;
-        _shootPosition = transform.GetChild(0);
+        if (!_isBox)
+        {
+            _healthBarRef = transform.GetChild(1).transform;
+            _ammoBarRef = transform.GetChild(2).transform;
+            _shootPosition = transform.GetChild(0);
+        }
 
         _currentHealth = _totalHealth;
         _currentAmmo = _totalAmmo;
