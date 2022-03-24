@@ -52,6 +52,8 @@ public abstract class TowerBase : MonoBehaviour, IDamagable
     {
         _col = GetComponent<Collider2D>();
         _rb = GetComponent<Rigidbody2D>();
+
+
         _healthBarRef = transform.GetChild(1).transform;
         _ammoBarRef = transform.GetChild(2).transform;
         _shootPosition = transform.GetChild(0);
