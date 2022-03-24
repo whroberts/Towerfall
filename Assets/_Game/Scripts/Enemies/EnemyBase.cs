@@ -19,8 +19,8 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
 
     [Header("Enemy Attack Stats")]
     [SerializeField] protected int _onHitDamage = 12;
-    [SerializeField] protected float _attackRange = 5;
-    [SerializeField] protected int _attackRate = 1;
+    [SerializeField] protected float _attackRange = 1;
+    [SerializeField] protected float _attackRate = 1;
 
     Collider2D _col;
     protected Rigidbody2D _rb;
@@ -29,7 +29,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable
     public int TotalHealth => _totalHealth;
     public int OnHitDamage => _onHitDamage;
     public float AttackRange => _attackRange;
-    public int AttackRate => _attackRate;
+    public float AttackRate => _attackRate;
     public bool AppliesForce => _attackAppliesForce;
 
     void Awake()
