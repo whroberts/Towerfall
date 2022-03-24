@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8580488089765476121}
   - component: {fileID: 8580488089765476120}
   - component: {fileID: 8580488089765476123}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Box1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,8 +93,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266b6c5e802c1f447bd7be013efcc4ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canShoot: 1
+  _towerGravity: 1
+  _towerFireRate: 0.75
+  _towerRotRecoil: 0
+  _towerLinRecoil: {x: 0, y: 0}
+  _currentAmmo: 0
+  _totalAmmo: 10
+  _reloadTime: 1
   _currentHealth: 0
   _totalHealth: 25
+  _timeToStartFiring: 0.1
+  _deathSound: []
 --- !u!1 &8580488090261597183
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,7 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8580488090261597180}
   - component: {fileID: 8580488090261597181}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Art
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +175,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: a89d88f3b94861f48a22518cc1f2e4cb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6340897cc57f58d448dbdbd14f924227, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
