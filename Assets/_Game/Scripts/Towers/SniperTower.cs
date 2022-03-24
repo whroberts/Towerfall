@@ -5,6 +5,8 @@ using UnityEngine;
 public class SniperTower : TowerBase
 {
     [SerializeField] private GameObject _projectileRef = null;
+    [SerializeField] private GameObject _particleRef = null;
+    private bool reloading = false;
 
     public override void PrintOnStart()
     {
@@ -15,7 +17,7 @@ public class SniperTower : TowerBase
     {
         // might be completely unnecessary but we need to pull the UI updater out of the repeating shooting function
 
-        transform.GetChild(1).GetComponent<TextMesh>().text = ("Ammo: " + _currentAmmo + " / " + _totalAmmo);
+        transform.GetChild(2).localScale = new Vector3(transform.GetChild(2).localScale.x, (_currentAmmo / _totalAmmo) * 3.0f, transform.GetChild(2).localScale.z);
     }
 
     public override void Shoot()
@@ -26,6 +28,9 @@ public class SniperTower : TowerBase
 
             Instantiate(_projectileRef, _shootPosition.position, _shootPosition.rotation);
 
+            GameObject prt = Instantiate(_particleRef, _shootPosition.position, _shootPosition.rotation);
+            prt.transform.rotation = Quaternion.Euler(prt.transform.rotation.x, prt.transform.rotation.y, prt.transform.rotation.z - 60f);
+
             //Rotational recoil from shooting
             _rb.AddTorque(_towerRotRecoil);
             //Linear recoil from shooting
@@ -35,12 +40,6 @@ public class SniperTower : TowerBase
             UpdateAmmoCount();
         }
 
-        //implemented the reload option
-        else if (_currentAmmo <= 0)
-        {
-            StartCoroutine(Reload());
-        }
-
     }
 
     public override IEnumerator Reload()
@@ -48,11 +47,17 @@ public class SniperTower : TowerBase
         //cancels the attack
         CancelInvoke();
 
+        StartCoroutine(Timer(_reloadTime));
+
         //waits for the reload time
         yield return new WaitForSeconds(_reloadTime);
 
         //resets the ammo count
         _currentAmmo = _totalAmmo;
+
+        reloading = false;
+
+        transform.GetChild(2).GetComponent<SpriteRenderer>().color = new Color32(255, 200, 0, 125);
 
         //sets UI
         UpdateAmmoCount();
@@ -79,6 +84,13 @@ public class SniperTower : TowerBase
         {
             _canShoot = false;
         }
+
+        //implemented the reload option
+        if (_currentAmmo <= 0 && reloading == false)
+        {
+            reloading = true;
+            StartCoroutine(Reload());
+        }
     }
 
     
@@ -90,5 +102,22 @@ public class SniperTower : TowerBase
         // TEMP ---> Maybe Coroutine?
 
         UpdateAmmoCount();
+    }
+
+    IEnumerator Timer(float initDur)
+    {
+
+        transform.GetChild(2).GetComponent<SpriteRenderer>().color = new Color32(255, 250, 200, 125);
+
+        float duration = 0;
+
+        while (duration < initDur)
+        {
+            duration += Time.deltaTime;
+
+            transform.GetChild(2).localScale = new Vector3(transform.GetChild(2).localScale.x, ((duration / initDur) * 3.0f), transform.GetChild(2).localScale.z);
+
+            yield return null;
+        }
     }
 }
